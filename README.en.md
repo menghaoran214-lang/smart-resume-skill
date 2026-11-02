@@ -28,15 +28,6 @@
 
 - [What this is](#what)
 - [How to install](#install)
-
-  <details>
-  <summary>Installation options (expand)</summary>
-
-  - [Ask your AI to install](#install-ai)
-  - [Manual installation](#install-manual)
-
-  </details>
-
 - [See the finished output in 30 seconds](#demo)
 - [How you use it](#usage)
 - [What is inside](#structure)
@@ -48,9 +39,8 @@
 
 ## How to install
 
-<a id="install-ai"></a>
-
-### Easiest: send one line to your AI
+<details open>
+<summary><b>Easiest: send one line to your AI</b></summary>
 
 Send this to an AI that supports installing skills and can access the repository and write files:
 
@@ -62,9 +52,12 @@ The AI needs repository access and an environment where skills can be installed.
 An ordinary chat may not support installation. On a phone, use an AI connected
 to a computer or cloud runtime; this is not a native iOS installation.
 
-<a id="install-manual"></a>
+</details>
 
-### Or install it yourself (Windows, macOS and Linux)
+<details>
+<summary><b>Or install it yourself (Windows, macOS and Linux)</b></summary>
+
+<a id="install-manual"></a>
 
 ```text
 git clone https://github.com/menghaoran214-lang/smart-resume-skill.git
@@ -76,6 +69,8 @@ python3 skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-re
 Requires Git and Python 3.10+. On Windows use `py` or `python` instead of `python3`.
 The target shown is for Codex; other agents need their own skill directory.
 Use a separate virtual environment for dependencies.
+
+</details>
 
 <a id="demo"></a>
 

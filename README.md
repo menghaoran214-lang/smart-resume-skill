@@ -28,15 +28,6 @@
 
 - [这是什么](#what)
 - [怎么安装](#install)
-
-  <details>
-  <summary>安装方式（点击展开）</summary>
-
-  - [让 AI 帮你安装](#install-ai)
-  - [手动安装](#install-manual)
-
-  </details>
-
 - [30 秒看成品](#demo)
 - [实际怎么用](#usage)
 - [这个技能长什么样](#structure)
@@ -48,9 +39,8 @@
 
 ## 怎么安装
 
-<a id="install-ai"></a>
-
-### 最省事：把这一行发给你的 AI
+<details open>
+<summary><b>最省事：把这一行发给你的 AI</b></summary>
 
 复制下面这行，粘贴到支持安装 Skill、能访问仓库并操作文件的 AI 对话框：
 
@@ -60,9 +50,12 @@
 
 AI 需要有仓库访问权限和可安装技能的运行环境；普通聊天窗口不一定支持安装。手机可通过连接电脑或云端运行环境的 AI 使用，不能直接装进 iOS。
 
-<a id="install-manual"></a>
+</details>
 
-### 或者自己装（Windows、macOS、Linux）
+<details>
+<summary><b>或者自己装（Windows、macOS、Linux）</b></summary>
+
+<a id="install-manual"></a>
 
 ```text
 git clone https://github.com/menghaoran214-lang/smart-resume-skill.git
@@ -72,6 +65,8 @@ python3 skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-re
 ```
 
 需要 Git 和 Python 3.10+。Windows 上把 `python3` 换成 `py` 或 `python`。示例目标目录用于 Codex；其他 AI 请使用它自己的技能目录。依赖建议装在独立虚拟环境中。
+
+</details>
 
 <a id="demo"></a>
 

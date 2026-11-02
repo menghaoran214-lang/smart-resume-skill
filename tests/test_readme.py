@@ -35,11 +35,16 @@ class RenderTests(unittest.TestCase):
             body = (ROOT / name).read_text(encoding="utf-8")
             anchors = re.findall(r"\]\(#([^)]+)\)", body)
             headings = set(re.findall(r'<a id="([^"]+)"></a>', body))
-            self.assertGreaterEqual(len(anchors), 9)
-            self.assertEqual(len(headings), 9)
-            self.assertRegex(body, r'(?s)<details>.*?#install-ai.*?#install-manual.*?</details>')
+            self.assertEqual(len(anchors), 7)
+            self.assertEqual(len(headings), 8)
             for anchor in anchors:
                 self.assertIn(anchor, headings, f"{name}: broken anchor {anchor}")
+
+    def test_toc_is_a_flat_list(self):
+        for name in ("README.md", "README.zh-TW.md", "README.en.md"):
+            body = (ROOT / name).read_text(encoding="utf-8")
+            toc = body.split("<a id=\"what\"></a>")[0].split("</ul>")[-1]
+            self.assertNotIn("<details>", toc, f"{name}: the table of contents must stay flat")
 
     def test_banner_badges_and_first_screen(self):
         for name in ("README.md", "README.zh-TW.md", "README.en.md"):

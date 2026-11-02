@@ -31,18 +31,7 @@ def build_toc(data, language):
     labels = {"zh-CN": "目录", "zh-TW": "目錄", "en": "Contents"}
     lines = [f"## {labels[language]}", ""]
     for section in data["sections"][language]:
-        if section["anchor"] == "install":
-            children = {
-                "zh-CN": ("安装方式（点击展开）", "让 AI 帮你安装", "手动安装"),
-                "zh-TW": ("安裝方式（點擊展開）", "讓 AI 幫你安裝", "手動安裝"),
-                "en": ("Installation options (expand)", "Ask your AI to install", "Manual installation"),
-            }[language]
-            lines += [f"- [{section['title']}](#install)", "",
-                      "  <details>", f"  <summary>{children[0]}</summary>", "",
-                      f"  - [{children[1]}](#install-ai)",
-                      f"  - [{children[2]}](#install-manual)", "", "  </details>", ""]
-        else:
-            lines.append(f"- [{section['title']}](#{section['anchor']})")
+        lines.append(f"- [{section['title']}](#{section['anchor']})")
     lines.append("")
     return "\n".join(lines)
 

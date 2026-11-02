@@ -28,9 +28,8 @@
 
 ## 怎麼安裝
 
-<a id="install-ai"></a>
-
-### 最省事：把這一行傳給你的 AI
+<details open>
+<summary><b>最省事：把這一行傳給你的 AI</b></summary>
 
 複製下面這行，貼到支援安裝 Skill、可存取倉庫並操作檔案的 AI 對話框：
 
@@ -40,15 +39,20 @@
 
 AI 需要倉庫存取權限及可安裝技能的執行環境；一般聊天視窗未必支援安裝。手機可透過連接電腦或雲端環境的 AI 使用，不能直接裝進 iOS。
 
-<a id="install-manual"></a>
+</details>
 
-### 或者自己裝（Windows、macOS、Linux）
+<details>
+<summary><b>或者自己裝（Windows、macOS、Linux）</b></summary>
+
+<a id="install-manual"></a>
 
 ```text
 {{INSTALL}}
 ```
 
 需要 Git 與 Python 3.10+。Windows 把 `python3` 換成 `py` 或 `python`。範例目標目錄用於 Codex；其他 AI 請使用各自的技能目錄。相依套件建議裝在獨立虛擬環境中。
+
+</details>
 
 <a id="demo"></a>
 
