@@ -1,0 +1,10 @@
+name: Suggest an improvement / 改进建议
+description: Explain the problem and the outcome you need.
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What would help? / 想解决什么问题？
+      description: Describe a concrete use case. Do not include personal candidate data.
+    validations:
+      required: true

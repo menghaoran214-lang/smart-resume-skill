@@ -1,11 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- Fixed centered language links and explicit section anchors in all three READMEs.
+- Added collapsible installation sublinks and clarified installation prerequisites.
+- Removed repository statistics and shortened the license footer, keeping 0BSD.
+- Clarified that the fictional demo generates files rather than tailoring a real resume.
+
 ## 0.2.0 - 2026-11-02
 
 ### Changed
 
 - Moved the skill into `skills/smart-resume/`, matching the common Agent Skills layout.
-- READMEs are now generated from `templates/` and `data/project.yaml` with an
+- READMEs are now generated from `templates/` and `data/project.json` with an
   automatic table of contents, centered banner, badge row and a clickable
   directory tree.
 - The first screen now answers what the skill is, who it is for and how to

@@ -23,9 +23,9 @@ class RenderTests(unittest.TestCase):
     def test_language_switch_is_centered_and_complete(self):
         for name in ("README.md", "README.zh-TW.md", "README.en.md"):
             body = (ROOT / name).read_text(encoding="utf-8")
-            match = re.search(r'<p align="center">([^<]*(?:\[[^\]]+\]\([^)]+\)[^<]*)*)</p>', body)
+            match = re.search(r'<p align="center">((?:<a href="README[^"]+">[^<]+</a>(?: · )?){3})</p>', body)
             self.assertIsNotNone(match, f"{name}: no centered paragraph for the language switch")
-            links = re.findall(r"\]\((README[^)]+)\)", match.group(1))
+            links = re.findall(r'href="(README[^"]+)"', match.group(1))
             self.assertEqual(len(links), 3)
             for target in links:
                 self.assertTrue((ROOT / target).is_file())
@@ -34,8 +34,10 @@ class RenderTests(unittest.TestCase):
         for name in ("README.md", "README.zh-TW.md", "README.en.md"):
             body = (ROOT / name).read_text(encoding="utf-8")
             anchors = re.findall(r"\]\(#([^)]+)\)", body)
-            headings = {render_readme.github_slug(match.group(2).strip())
-                        for match in re.finditer(r"^(#{2,3})\s+(.+)$", body, re.M)}
+            headings = set(re.findall(r'<a id="([^"]+)"></a>', body))
+            self.assertGreaterEqual(len(anchors), 9)
+            self.assertEqual(len(headings), 9)
+            self.assertRegex(body, r'(?s)<details>.*?#install-ai.*?#install-manual.*?</details>')
             for anchor in anchors:
                 self.assertIn(anchor, headings, f"{name}: broken anchor {anchor}")
 

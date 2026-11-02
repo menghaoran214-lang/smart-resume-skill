@@ -8,10 +8,10 @@ Standards Skill.
 | --- | --- |
 | Installable skill | `skills/smart-resume/SKILL.md` plus `scripts/install.py` |
 | Common skill layout | Skill body under `skills/`, repository files at the root |
-| Three-language navigation | Generated README.md, README.zh-TW.md, README.en.md with a first-line switch |
+| Three-language navigation | Generated README.md, README.zh-TW.md, README.en.md with centered HTML language links |
 | Generated README | `scripts/render_readme.py` over `templates/` and `data/project.json`, automatic table of contents |
 | First screen | Centered banner, badge row, one-line purpose, who it is for, install |
-| Dynamic content | `scripts/update_stats.py` and a scheduled workflow refreshing `assets/stats.svg` |
+| Navigation | Explicit stable anchors and independently collapsible installation sublinks |
 | JD screenshot workflow | Host vision procedure in SKILL.md |
 | Reuse authorized history | Host memory/material inventory, then old resume if insufficient |
 | Ask missing items individually | Intake order and photo provide/omit decision |
@@ -21,7 +21,7 @@ Standards Skill.
 | Default two A4 pages | Two-page intake, one-page support, overflow refusal |
 | Basic tests | Skill suite plus repository README suite |
 | Privacy | Synthetic examples, private inputs outside the repo, allowlisted package |
-| GitHub readiness | AGENTS, CONTRIBUTING, LICENSE, CHANGELOG, CI, scheduled workflow, PR template |
+| GitHub readiness | AGENTS, CONTRIBUTING, LICENSE, CHANGELOG, CI, scheduled workflow, PR template, issue templates and security reporting |
 
 Outside this delivery: building the Repo Standards Skill, actual applications,
 public hosting, automatic memory or OCR services, DOCX export, global

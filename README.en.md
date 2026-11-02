@@ -10,9 +10,11 @@
 <img src="https://img.shields.io/badge/License-0BSD-blue.svg" alt="License: 0BSD" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
 </p>
 
-<p align="center">[简体中文](README.md) · [繁體中文](README.zh-TW.md) · [English](README.en.md)</p>
+<p align="center"><a href="README.md">简体中文</a> · <a href="README.zh-TW.md">繁體中文</a> · <a href="README.en.md">English</a></p>
 
 ---
+
+<a id="what"></a>
 
 ## What this is
 
@@ -22,30 +24,45 @@
 
 **Who it is for**: Anyone job hunting who needs one resume tailored to one role
 
-## Table of Contents
+## Contents
 
-- [What this is](#what-this-is)
-- [How to install](#how-to-install)
-  - [Easiest: send one line to your AI](#easiest-send-one-line-to-your-ai)
-  - [Or install it yourself (Windows, macOS and Linux)](#or-install-it-yourself-windows-macos-and-linux)
-- [See the finished output in 30 seconds](#see-the-finished-output-in-30-seconds)
-- [How you use it](#how-you-use-it)
-- [What is inside](#what-is-inside)
-- [What it does not do](#what-it-does-not-do)
-- [Repository status](#repository-status)
+- [What this is](#what)
+- [How to install](#install)
+
+  <details>
+  <summary>Installation options (expand)</summary>
+
+  - [Ask your AI to install](#install-ai)
+  - [Manual installation](#install-manual)
+
+  </details>
+
+- [See the finished output in 30 seconds](#demo)
+- [How you use it](#usage)
+- [What is inside](#structure)
+- [What it does not do](#limits)
 - [License](#license)
 
 
+<a id="install"></a>
+
 ## How to install
+
+<a id="install-ai"></a>
 
 ### Easiest: send one line to your AI
 
-Copy this line into Codex, Claude Code, or any AI that supports skills. It fetches
-and installs the skill for you:
+Send this to an AI that supports installing skills and can access the repository and write files:
 
 ```text
 Install this skill: https://github.com/menghaoran214-lang/smart-resume-skill
 ```
+
+The AI needs repository access and an environment where skills can be installed.
+An ordinary chat may not support installation. On a phone, use an AI connected
+to a computer or cloud runtime; this is not a native iOS installation.
+
+<a id="install-manual"></a>
 
 ### Or install it yourself (Windows, macOS and Linux)
 
@@ -56,13 +73,17 @@ python3 -m pip install -r skills/smart-resume/requirements.txt
 python3 skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume
 ```
 
-On Windows use `py` or `python` instead of `python3`. A phone has no local
-terminal, but you can send the one-liner to a cloud AI instead.
+Requires Git and Python 3.10+. On Windows use `py` or `python` instead of `python3`.
+The target shown is for Codex; other agents need their own skill directory.
+Use a separate virtual environment for dependencies.
+
+<a id="demo"></a>
 
 ## See the finished output in 30 seconds
 
-This command runs the whole flow with the repository's **fictional sample** and
-produces three files:
+After installing dependencies, run this from the repository root to preview
+the layout with **fictional data**. It only generates files; it does not read a
+screenshot or your personal materials.
 
 ```text
 cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --demo --out output/demo
@@ -70,12 +91,14 @@ cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --
 
 | File | What it is |
 | --- | --- |
-| `output/demo/resume.pdf` | Two A4 pages, selectable text, ready to submit |
+| `output/demo/resume.pdf` | Two A4 sample pages for preview only; do not submit |
 | `output/demo/resume.html` | The same resume as a web page; click to edit |
 | `output/demo/review.json` | Layout and fact review record for you or the AI to check |
 
 The sample data is made up, every page says "fictional sample, do not submit",
 and it cannot be mistaken for a real resume.
+
+<a id="usage"></a>
 
 ## How you use it
 
@@ -88,6 +111,8 @@ After installing, say one sentence to your AI:
 The AI reads your materials, asks for what is missing, reorders the relevant
 experience around that role, produces the PDF and editable version, and checks
 every page. It does not invent experience and does not mix in another role.
+
+<a id="structure"></a>
 
 ## What is inside
 
@@ -113,6 +138,8 @@ smart-resume/
 ```
 
 
+<a id="limits"></a>
+
 ## What it does not do
 
 - The skill lives in `skills/smart-resume/`. The scripts validate and typeset;
@@ -124,23 +151,8 @@ smart-resume/
 - It never submits applications or uploads anything; it asks before touching
   any external system.
 
-## Repository status
-
-<p align="center">
-  <img src="assets/stats.svg" alt="repository stats" height="26">
-</p>
-
-- 技能版本 / skill version：`0.1.0`
-- 上方统计图由定时工作流自动刷新；CI 状态见仓库顶部 Actions 徽章
-
-
-The READMEs are generated by `scripts/render_readme.py` from `templates/` and
-`data/project.json`. Edit the template or the data file, then regenerate.
+<a id="license"></a>
 
 ## License
 
-This project uses the **0BSD** license (see [LICENSE](LICENSE)): use it, modify
-it and redistribute it, including commercially, without attribution. To propose
-improvements or code, read [CONTRIBUTING.md](CONTRIBUTING.md); that file is for
-people who want to build on it, not for people who only want a resume. Every
-change is listed in [CHANGELOG.md](CHANGELOG.md).
+[0BSD](LICENSE) · Use, modify and use commercially; provided as is, without warranty.

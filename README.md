@@ -10,9 +10,11 @@
 <img src="https://img.shields.io/badge/License-0BSD-blue.svg" alt="License: 0BSD" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
 </p>
 
-<p align="center">[简体中文](README.md) · [繁體中文](README.zh-TW.md) · [English](README.en.md)</p>
+<p align="center"><a href="README.md">简体中文</a> · <a href="README.zh-TW.md">繁體中文</a> · <a href="README.en.md">English</a></p>
 
 ---
+
+<a id="what"></a>
 
 ## 这是什么
 
@@ -24,29 +26,43 @@
 
 ## 目录
 
-- [这是什么](#这是什么)
-- [怎么安装](#怎么安装)
-  - [最省事：把这一行发给你的 AI](#最省事把这一行发给你的-ai)
-  - [或者自己装（Windows、macOS、Linux 都一样）](#或者自己装windowsmacoslinux-都一样)
-- [30 秒看成品](#30-秒看成品)
-- [实际怎么用](#实际怎么用)
-- [这个技能长什么样](#这个技能长什么样)
-- [它不做什么](#它不做什么)
-- [仓库状态](#仓库状态)
-- [开源协议](#开源协议)
+- [这是什么](#what)
+- [怎么安装](#install)
 
+  <details>
+  <summary>安装方式（点击展开）</summary>
+
+  - [让 AI 帮你安装](#install-ai)
+  - [手动安装](#install-manual)
+
+  </details>
+
+- [30 秒看成品](#demo)
+- [实际怎么用](#usage)
+- [这个技能长什么样](#structure)
+- [它不做什么](#limits)
+- [开源协议](#license)
+
+
+<a id="install"></a>
 
 ## 怎么安装
 
+<a id="install-ai"></a>
+
 ### 最省事：把这一行发给你的 AI
 
-复制下面这行，粘贴到 Codex / Claude Code / 任何支持 Skill 的 AI 对话框里，它会自己去拉取并安装：
+复制下面这行，粘贴到支持安装 Skill、能访问仓库并操作文件的 AI 对话框：
 
 ```text
 请安装这个技能：https://github.com/menghaoran214-lang/smart-resume-skill
 ```
 
-### 或者自己装（Windows、macOS、Linux 都一样）
+AI 需要有仓库访问权限和可安装技能的运行环境；普通聊天窗口不一定支持安装。手机可通过连接电脑或云端运行环境的 AI 使用，不能直接装进 iOS。
+
+<a id="install-manual"></a>
+
+### 或者自己装（Windows、macOS、Linux）
 
 ```text
 git clone https://github.com/menghaoran214-lang/smart-resume-skill.git
@@ -55,12 +71,13 @@ python3 -m pip install -r skills/smart-resume/requirements.txt
 python3 skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume
 ```
 
-Windows 上把 `python3` 换成 `py`，或者用 `python`。
-手机上没有本地终端，但可以直接把上面那行口令发给云端 AI 帮你装。
+需要 Git 和 Python 3.10+。Windows 上把 `python3` 换成 `py` 或 `python`。示例目标目录用于 Codex；其他 AI 请使用它自己的技能目录。依赖建议装在独立虚拟环境中。
+
+<a id="demo"></a>
 
 ## 30 秒看成品
 
-这条命令会用仓库里的**虚构示例**跑一遍完整流程，生成三个文件：
+安装依赖后，在仓库根目录运行下面这行，用**虚构资料**查看排版效果。这一步只演示文件生成，不读取截图，也不读取你的个人资料。
 
 ```text
 cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --demo --out output/demo
@@ -68,11 +85,13 @@ cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --
 
 | 文件 | 是什么 |
 | --- | --- |
-| `output/demo/resume.pdf` | 两页 A4 简历，文字可选中复制，直接就能投 |
+| `output/demo/resume.pdf` | 两页 A4 示例，仅用于查看效果，不可投递 |
 | `output/demo/resume.html` | 同一份简历的网页版，点一下就能改字 |
 | `output/demo/review.json` | 排版与事实的检查记录，交给你或 AI 复核 |
 
 示例数据全是编的，每页都写着"虚构示例 · 不可投递"，不会被误当成真实简历。
+
+<a id="usage"></a>
 
 ## 实际怎么用
 
@@ -83,6 +102,8 @@ cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --
 
 AI 会：读你的资料 → 缺什么问你 → 挑相关经历重排 → 出 PDF + 可编辑版 → 逐页验排版。
 它不会编造经历，也不会把别的岗位混进来。
+
+<a id="structure"></a>
 
 ## 这个技能长什么样
 
@@ -108,6 +129,8 @@ smart-resume/
 ```
 
 
+<a id="limits"></a>
+
 ## 它不做什么
 
 - 技能本体在 `skills/smart-resume/`，脚本只做校验和排版；识别截图、挑经历是宿主 AI 的活。
@@ -115,22 +138,8 @@ smart-resume/
 - 记忆里的经历需要你确认；脚本只能检查"有没有来源"，判断不了真假。
 - 不会替你投简历、不会公开上传任何东西，动外部系统前一定问你。
 
-## 仓库状态
-
-<p align="center">
-  <img src="assets/stats.svg" alt="repository stats" height="26">
-</p>
-
-- 技能版本 / skill version：`0.1.0`
-- 上方统计图由定时工作流自动刷新；CI 状态见仓库顶部 Actions 徽章
-
-
-README 由 `scripts/render_readme.py` 从 `templates/` 与 `data/project.json` 生成，
-改内容请改模板或数据后重新生成。
+<a id="license"></a>
 
 ## 开源协议
 
-本项目采用 **0BSD** 许可（见 [LICENSE](LICENSE)）：你可以自由使用、修改、再分发，
-包括商用，不需要署名。给项目提改进建议或代码，看 [CONTRIBUTING.md](CONTRIBUTING.md)；
-这份文件是给"想参与开发的人"看的，只是想用它做简历就不必打开。
-每次改动的记录在 [CHANGELOG.md](CHANGELOG.md)。
+[0BSD 许可证](LICENSE) · 可使用、修改和商用；按原样提供，不作担保。

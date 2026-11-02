@@ -1,11 +1,11 @@
 # Smart Resume - README generation and checks.
 #
 # README.md, README.zh-TW.md and README.en.md are products generated from
-# templates/ and data/project.yaml. Edit the source, not the output.
+# templates/ and data/project.json. Edit the source, not the output.
 
 PYTHON ?= python
 
-.PHONY: help generate check test package stats
+.PHONY: help generate check test package
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
@@ -22,6 +22,3 @@ test: ## Run repository and skill tests
 
 package: ## Build the installable skill archive
 	$(PYTHON) skills/smart-resume/scripts/package.py --out dist/smart-resume-skill-0.1.0.zip
-
-stats: ## Refresh the dynamic repository stats image
-	$(PYTHON) scripts/update_stats.py

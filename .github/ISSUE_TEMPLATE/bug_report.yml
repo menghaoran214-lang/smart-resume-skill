@@ -1,0 +1,19 @@
+name: Bug report / 问题反馈
+description: Report an installation, rendering or navigation problem using fictional data.
+body:
+  - type: markdown
+    attributes:
+      value: "请勿上传真实简历、照片、电话或私人资料。安全问题请查看 SECURITY.md。"
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction / 如何出现
+      description: Include your OS, AI tool, Python version and reproduction steps.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual result / 预期与实际结果
+    validations:
+      required: true

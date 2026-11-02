@@ -14,6 +14,8 @@
 
 ---
 
+<a id="what"></a>
+
 ## 這是什麼
 
 {{WHAT}}
@@ -22,27 +24,37 @@
 
 {{TOC}}
 
+<a id="install"></a>
+
 ## 怎麼安裝
+
+<a id="install-ai"></a>
 
 ### 最省事：把這一行傳給你的 AI
 
-複製下面這行，貼到 Codex / Claude Code / 任何支援 Skill 的 AI 對話框，它會自己去抓取並安裝：
+複製下面這行，貼到支援安裝 Skill、可存取倉庫並操作檔案的 AI 對話框：
 
 ```text
 {{INSTALL_PROMPT}}
 ```
 
-### 或者自己裝（Windows、macOS、Linux 都一樣）
+AI 需要倉庫存取權限及可安裝技能的執行環境；一般聊天視窗未必支援安裝。手機可透過連接電腦或雲端環境的 AI 使用，不能直接裝進 iOS。
+
+<a id="install-manual"></a>
+
+### 或者自己裝（Windows、macOS、Linux）
 
 ```text
 {{INSTALL}}
 ```
 
-Windows 把 `python3` 換成 `py` 或 `python`。手機沒有本地終端機，但可以把上面那行口令傳給雲端 AI 幫你裝。
+需要 Git 與 Python 3.10+。Windows 把 `python3` 換成 `py` 或 `python`。範例目標目錄用於 Codex；其他 AI 請使用各自的技能目錄。相依套件建議裝在獨立虛擬環境中。
+
+<a id="demo"></a>
 
 ## 30 秒看成品
 
-這條命令會用倉庫裡的**虛構範例**跑一遍完整流程，產生三個檔案：
+安裝相依套件後，在倉庫根目錄執行下列指令，用**虛構資料**查看排版效果。這一步僅示範檔案產生，不讀取截圖或個人資料。
 
 ```text
 {{DEMO}}
@@ -50,11 +62,13 @@ Windows 把 `python3` 換成 `py` 或 `python`。手機沒有本地終端機，�
 
 | 檔案 | 是什麼 |
 | --- | --- |
-| `output/demo/resume.pdf` | 兩頁 A4 履歷，文字可選取複製，直接能投 |
+| `output/demo/resume.pdf` | 兩頁 A4 範例，僅供查看效果，不可投遞 |
 | `output/demo/resume.html` | 同一份履歷的網頁版，點一下就能改字 |
 | `output/demo/review.json` | 排版與事實的檢查記錄，交給你或 AI 複核 |
 
 範例資料全是編的，每頁都寫著「虛構範例 · 不可投遞」，不會被誤認成真實履歷。
+
+<a id="usage"></a>
 
 ## 實際怎麼用
 
@@ -66,9 +80,13 @@ Windows 把 `python3` 換成 `py` 或 `python`。手機沒有本地終端機，�
 AI 會：讀你的資料 → 缺什麼問你 → 挑相關經歷重排 → 出 PDF 加可編輯版 → 逐頁驗排版。
 它不會捏造經歷，也不會混入其他職缺。
 
+<a id="structure"></a>
+
 ## 這個技能長什麼樣
 
 {{SKILL_TREE}}
+
+<a id="limits"></a>
 
 ## 它不做什麼
 
@@ -77,18 +95,8 @@ AI 會：讀你的資料 → 缺什麼問你 → 挑相關經歷重排 → 出 P
 - 記憶中的經歷需你確認；腳本只能檢查「有沒有來源」，判斷不了真偽。
 - 不會替你投遞、不會公開上傳任何東西，動外部系統前一定問你。
 
-## 倉庫狀態
-
-{{STATS_SVG}}
-
-{{STATS}}
-
-README 由 `scripts/render_readme.py` 依 `templates/` 與 `data/project.json` 產生，
-改內容請改模板或資料後重新產生。
+<a id="license"></a>
 
 ## 開源授權
 
-本專案採用 **0BSD** 授權（見 [LICENSE](LICENSE)）：你可以自由使用、修改、再散布，
-包括商用，不需要署名。想提改進建議或程式，看 [CONTRIBUTING.md](CONTRIBUTING.md)；
-那份文件是給「想參與開發的人」看的，只是想用它做履歷就不必打開。
-每次改動記錄在 [CHANGELOG.md](CHANGELOG.md)。
+[0BSD 授權](LICENSE) · 可使用、修改及商用；按原樣提供，不作擔保。

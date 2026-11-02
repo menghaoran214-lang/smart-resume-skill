@@ -40,15 +40,132 @@
   ],
   "demo": "cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --demo --out output/demo",
   "badges": [
-    {"label": "License", "message": "0BSD", "color": "blue"},
-    {"label": "Skills", "message": "1", "color": "green"},
-    {"label": "Python", "message": "3.10+", "color": "blue"},
-    {"label": "Standard", "message": "Agent Skills", "color": "purple"}
+    {
+      "label": "License",
+      "message": "0BSD",
+      "color": "blue"
+    },
+    {
+      "label": "Skills",
+      "message": "1",
+      "color": "green"
+    },
+    {
+      "label": "Python",
+      "message": "3.10+",
+      "color": "blue"
+    },
+    {
+      "label": "Standard",
+      "message": "Agent Skills",
+      "color": "purple"
+    }
   ],
   "links": [
-    {"text": "简体中文", "target": "README.md"},
-    {"text": "繁體中文", "target": "README.zh-TW.md"},
-    {"text": "English", "target": "README.en.md"}
+    {
+      "text": "简体中文",
+      "target": "README.md"
+    },
+    {
+      "text": "繁體中文",
+      "target": "README.zh-TW.md"
+    },
+    {
+      "text": "English",
+      "target": "README.en.md"
+    }
   ],
-  "repo": "menghaoran214-lang/smart-resume-skill"
+  "repo": "menghaoran214-lang/smart-resume-skill",
+  "sections": {
+    "zh-CN": [
+      {
+        "title": "这是什么",
+        "anchor": "what"
+      },
+      {
+        "title": "怎么安装",
+        "anchor": "install"
+      },
+      {
+        "title": "30 秒看成品",
+        "anchor": "demo"
+      },
+      {
+        "title": "实际怎么用",
+        "anchor": "usage"
+      },
+      {
+        "title": "这个技能长什么样",
+        "anchor": "structure"
+      },
+      {
+        "title": "它不做什么",
+        "anchor": "limits"
+      },
+      {
+        "title": "开源协议",
+        "anchor": "license"
+      }
+    ],
+    "zh-TW": [
+      {
+        "title": "這是什麼",
+        "anchor": "what"
+      },
+      {
+        "title": "怎麼安裝",
+        "anchor": "install"
+      },
+      {
+        "title": "30 秒看成品",
+        "anchor": "demo"
+      },
+      {
+        "title": "實際怎麼用",
+        "anchor": "usage"
+      },
+      {
+        "title": "這個技能長什麼樣",
+        "anchor": "structure"
+      },
+      {
+        "title": "它不做什麼",
+        "anchor": "limits"
+      },
+      {
+        "title": "開源授權",
+        "anchor": "license"
+      }
+    ],
+    "en": [
+      {
+        "title": "What this is",
+        "anchor": "what"
+      },
+      {
+        "title": "How to install",
+        "anchor": "install"
+      },
+      {
+        "title": "See the finished output in 30 seconds",
+        "anchor": "demo"
+      },
+      {
+        "title": "How you use it",
+        "anchor": "usage"
+      },
+      {
+        "title": "What is inside",
+        "anchor": "structure"
+      },
+      {
+        "title": "What it does not do",
+        "anchor": "limits"
+      },
+      {
+        "title": "License",
+        "anchor": "license"
+      }
+    ]
+  }
 }
