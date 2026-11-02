@@ -5,7 +5,7 @@ isolated environment. Run `make test` for the repository tests and the skill
 tests. For a demo PDF, use the README commands and a locally licensed font
 covering its characters.
 
-The three READMEs are generated from `templates/` and `data/project.yaml`.
+The three READMEs are generated from `templates/` and `data/project.json`.
 Change the source and run `python scripts/render_readme.py`; CI fails when a
 README is out of date. Include a concrete behavior test for validation,
 rendering or installation changes. Do not commit real resumes, photos, contact

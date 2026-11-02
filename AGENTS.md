@@ -2,7 +2,7 @@
 
 Scope: this Smart Resume repository only.
 
-- The READMEs are generated products. Edit `templates/` and `data/project.yaml`,
+- The READMEs are generated products. Edit `templates/` and `data/project.json`,
   then run `python scripts/render_readme.py`. Never edit `README*.md` by hand.
 - The skill itself lives in `skills/smart-resume/`. Keep it minimal: SKILL.md,
   scripts, references, assets, examples.

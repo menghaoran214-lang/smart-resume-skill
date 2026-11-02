@@ -6,6 +6,7 @@ Rendering is idempotent, so CI can fail when a README is out of date.
 """
 
 import argparse
+import json
 from pathlib import Path
 import re
 import subprocess
@@ -22,54 +23,8 @@ LANGUAGES = {
 
 
 def load_data():
-    """Read the project data file, with PyYAML when available."""
-    path = ROOT / "data/project.yaml"
-    try:
-        import yaml
-    except ImportError:
-        yaml = None
-    if yaml is not None:
-        with path.open(encoding="utf-8") as stream:
-            return yaml.safe_load(stream)
-    return parse_simple_yaml(path.read_text(encoding="utf-8"))
-
-
-def parse_simple_yaml(text):
-    """Minimal parser for the nested mapping and scalar lists used here."""
-    root = {}
-    stack = [(-1, root)]
-    key = None
-    for raw in text.splitlines():
-        if not raw.strip() or raw.strip().startswith("#"):
-            continue
-        indent = len(raw) - len(raw.lstrip())
-        line = raw.strip()
-        while len(stack) > 1 and indent <= stack[-1][0]:
-            stack.pop()
-        container = stack[-1][1]
-        if line.startswith("- "):
-            value = parse_scalar(line[2:].strip())
-            if isinstance(container.get(key), list):
-                container[key].append(value)
-            continue
-        if ":" not in line:
-            continue
-        name, _, value = line.partition(":")
-        name, value = name.strip(), value.strip()
-        key = name
-        if value:
-            container[key] = parse_scalar(value)
-        else:
-            container[key] = {}
-            stack.append((indent, container[key]))
-    return root
-
-
-def parse_scalar(value):
-    value = value.strip().strip('"')
-    if value.startswith("[") and value.endswith("]"):
-        return [item.strip().strip('"') for item in value[1:-1].split(",") if item.strip()]
-    return value
+    """Read the project data file. JSON keeps the toolchain dependency-free."""
+    return json.loads((ROOT / "data/project.json").read_text(encoding="utf-8"))
 
 
 def github_slug(text):

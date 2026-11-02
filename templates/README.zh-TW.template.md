@@ -59,7 +59,7 @@ Agent 會：讀你的資料 → 缺什麼問你 → 挑相關經歷重排 → �
 
 {{STATS}}
 
-README 由 `scripts/render_readme.py` 依 `templates/` 與 `data/project.yaml` 產生，
+README 由 `scripts/render_readme.py` 依 `templates/` 與 `data/project.json` 產生，
 改內容請改模板或資料後重新產生。
 
 ## 參與

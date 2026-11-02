@@ -89,11 +89,11 @@ smart-resume/
   <img src="assets/stats.svg" alt="repository stats" height="26">
 </p>
 
-- 最新提交 / latest commit：`aea6bd0` · 2026-11-02
+- 最新提交 / latest commit：`8e4c802` · 2026-11-02
 - CI 状态：见仓库顶部 Actions 徽章
 
 
-README 由 `scripts/render_readme.py` 从 `templates/` 与 `data/project.yaml` 生成，
+README 由 `scripts/render_readme.py` 从 `templates/` 与 `data/project.json` 生成，
 改内容请改模板或数据后重新生成。
 
 ## 参与

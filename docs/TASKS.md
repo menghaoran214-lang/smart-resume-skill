@@ -9,7 +9,7 @@ Standards Skill.
 | Installable skill | `skills/smart-resume/SKILL.md` plus `scripts/install.py` |
 | Common skill layout | Skill body under `skills/`, repository files at the root |
 | Three-language navigation | Generated README.md, README.zh-TW.md, README.en.md with a first-line switch |
-| Generated README | `scripts/render_readme.py` over `templates/` and `data/project.yaml`, automatic table of contents |
+| Generated README | `scripts/render_readme.py` over `templates/` and `data/project.json`, automatic table of contents |
 | First screen | Centered banner, badge row, one-line purpose, who it is for, install |
 | Dynamic content | `scripts/update_stats.py` and a scheduled workflow refreshing `assets/stats.svg` |
 | JD screenshot workflow | Host vision procedure in SKILL.md |
