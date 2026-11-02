@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "language": "zh-CN",
+  "demo": false,
+  "jd": {"title": "", "company": "", "source": ""},
+  "intention": "",
+  "candidate": {"name": "name", "contacts": [], "photo_preference": "omit", "photo": null},
+  "sources": [],
+  "claims": [{"id": "name", "text": "", "status": "pending", "source_ids": []}],
+  "pages": [
+    [{"title": "个人概述", "claim_ids": []}, {"title": "相关经历", "claim_ids": []}],
+    [{"title": "项目经历", "claim_ids": []}, {"title": "教育与技能", "claim_ids": []}]
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "language": "zh-CN",
+  "demo": true,
+  "jd": {
+    "title": "内容运营专员",
+    "company": "虚构示例团队",
+    "source": "Synthetic JD for software demonstration; not a real vacancy"
+  },
+  "intention": "内容运营专员",
+  "candidate": {"name": "name", "contacts": ["contact"], "photo_preference": "omit", "photo": null},
+  "sources": [{"id": "synthetic", "kind": "synthetic", "locator": "examples/demo.json; all identities and experiences are fictional"}],
+  "claims": [
+    {"id": "name", "text": "示例候选人", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "contact", "text": "candidate@example.invalid", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "summary", "text": "本页为虚构排版示例，用于展示如何按一个岗位组织已有经历，不代表真实求职者。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "experience-title", "text": "示例内容工作室｜内容助理｜示例时间段", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "experience", "text": "整理选题与公开资料，协助撰写内容初稿，维护发布前的事实核对清单。保留原始来源，区分观察、判断与尚待核实的内容。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "workflow", "text": "将素材收集、初稿、复核与发布准备分为可检查的步骤，记录交接事项。此处不使用未经证明的增长率或阅读量。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "project-title", "text": "示例项目｜知识内容资料库", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "project", "text": "按主题维护资料索引，为每条材料记录出处、日期和可引用范围；将待核实内容留在内部清单中，避免混入对外稿件。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "skills", "text": "示例技能：资料整理、文字编辑、表格协作。真实使用时仅保留本人能够说明并有来源支持的技能。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "education", "text": "示例教育条目：实际制作时填写经核实的学校、专业、学历和时间；不得照搬本示例。", "status": "document_supported", "source_ids": ["synthetic"]}
+  ],
+  "pages": [
+    [{"title": "个人概述", "claim_ids": ["summary"]}, {"title": "相关经历", "claim_ids": ["experience-title", "experience", "workflow"]}],
+    [{"title": "项目经历", "claim_ids": ["project-title", "project"]}, {"title": "教育与技能", "claim_ids": ["education", "skills"]}]
+  ]
+}

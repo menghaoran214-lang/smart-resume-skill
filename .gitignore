@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+output/
+dist/
+private/
+private-resume/
+.env
+.env.*
+*.pdf
+*.docx
+*.png
+*.jpg
+*.jpeg
