@@ -24,7 +24,7 @@ LANGUAGES = {
 
 def load_data():
     """Read the project data file. JSON keeps the toolchain dependency-free."""
-    return json.loads((ROOT / "data/project.json").read_text(encoding="utf-8"))
+    return json.loads((ROOT / "data/project.json").read_text(encoding="utf-8-sig"))
 
 
 def github_slug(text):
@@ -111,13 +111,15 @@ def render(language, data):
     replacements = {
         "{{BANNER}}": build_banner(),
         "{{BADGES}}": build_badges(data),
+        "{{TITLE}}": data["name"],
         "{{LANG_SWITCH}}": " · ".join(
             f"[{link['text']}]({link['target']})" for link in data["links"]),
         "{{TAGLINE}}": data["tagline"][language],
         "{{WHAT}}": "\n".join(f"- {item}" for item in data["what"][language]),
         "{{AUDIENCE}}": data["audience"][language],
+        "{{INSTALL_PROMPT}}": data["install_prompt"][language],
         "{{INSTALL}}": "\n".join(data["install"]),
-        "{{DEMO}}": data["demo"][language],
+        "{{DEMO}}": data["demo"],
         "{{SKILL_TREE}}": build_skill_tree(),
         "{{STATS}}": build_stats(),
         "{{STATS_SVG}}": build_stats_svg(),

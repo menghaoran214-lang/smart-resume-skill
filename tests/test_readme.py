@@ -20,10 +20,12 @@ class RenderTests(unittest.TestCase):
         changed = render_readme.write(render_readme.render_all(), check=True)
         self.assertEqual(changed, [], "Run scripts/render_readme.py to refresh the READMEs")
 
-    def test_language_switch_on_first_line(self):
+    def test_language_switch_is_centered_and_complete(self):
         for name in ("README.md", "README.zh-TW.md", "README.en.md"):
-            first = (ROOT / name).read_text(encoding="utf-8").splitlines()[0]
-            links = re.findall(r"\]\((README[^)]+)\)", first)
+            body = (ROOT / name).read_text(encoding="utf-8")
+            match = re.search(r'<p align="center">([^<]*(?:\[[^\]]+\]\([^)]+\)[^<]*)*)</p>', body)
+            self.assertIsNotNone(match, f"{name}: no centered paragraph for the language switch")
+            links = re.findall(r"\]\((README[^)]+)\)", match.group(1))
             self.assertEqual(len(links), 3)
             for target in links:
                 self.assertTrue((ROOT / target).is_file())

@@ -1,67 +1,95 @@
-[简体中文](README.md) · [繁體中文](README.zh-TW.md) · [English](README.en.md)
-
 <p align="center">
-  <img src="assets/banner.png" alt="Smart Resume" width="820">
+  <img src="assets/banner.png" alt="Smart Resume" width="760">
 </p>
 
-<img src="https://img.shields.io/badge/License-0BSD-blue.svg" alt="License: 0BSD" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
+<h1 align="center">Smart Resume</h1>
 
 <p align="center"><b>A JD screenshot plus your existing materials into a truthful two-page A4 resume</b></p>
 
-- {'Screenshot in, resume out': 'it reorders your real work around that one role'}
-- {'Never invents': 'unverified work is asked about, the job title is copied verbatim'}
-- {'Two deliverables': 'a submittable PDF and an editable web version'}
+<p align="center">
+<img src="https://img.shields.io/badge/License-0BSD-blue.svg" alt="License: 0BSD" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
+</p>
 
-**Who it is for**: Anyone job hunting who needs one resume tailored to one role
+<p align="center">[简体中文](README.md) · [繁體中文](README.zh-TW.md) · [English](README.en.md)</p>
 
 ---
 
-## Install
+## What this is
+
+- Screenshot in, resume out: it reorders your real work around that one role
+- Never invents: unverified work is asked about, the job title is copied verbatim
+- Two deliverables: a submittable PDF and an editable web version
+
+**Who it is for**: Anyone job hunting who needs one resume tailored to one role
+
+## Table of Contents
+
+- [What this is](#what-this-is)
+- [How to install](#how-to-install)
+  - [Easiest: send one line to your AI](#easiest-send-one-line-to-your-ai)
+  - [Or install it yourself (Windows, macOS and Linux)](#or-install-it-yourself-windows-macos-and-linux)
+- [See the finished output in 30 seconds](#see-the-finished-output-in-30-seconds)
+- [How you use it](#how-you-use-it)
+- [What is inside](#what-is-inside)
+- [What it does not do](#what-it-does-not-do)
+- [Repository status](#repository-status)
+- [License](#license)
+
+
+## How to install
+
+### Easiest: send one line to your AI
+
+Copy this line into Codex, Claude Code, or any AI that supports skills. It fetches
+and installs the skill for you:
 
 ```text
-python -m venv .venv
-pip install -r skills/smart-resume/requirements.txt
-python skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume
+Install this skill: https://github.com/menghaoran214-lang/smart-resume-skill
 ```
 
-On Windows use `.\.venv\Scripts\python.exe` in place of `python`. The installer
-refuses to overwrite an existing directory and never modifies your agent's
-environment; keep dependencies in your own virtual environment.
-
-## See it in 30 seconds
+### Or install it yourself (Windows, macOS and Linux)
 
 ```text
-cd skills/smart-resume && python scripts/resume.py render examples/demo.json --demo --out output/demo
+git clone https://github.com/menghaoran214-lang/smart-resume-skill.git
+cd smart-resume-skill
+python3 -m pip install -r skills/smart-resume/requirements.txt
+python3 skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume
 ```
 
-You get `resume.pdf` (two A4 pages), `resume.html` (editable) and `review.json`
-(acceptance record). The sample data is entirely fictional and every page
-carries a notice that it must not be submitted.
+On Windows use `py` or `python` instead of `python3`. A phone has no local
+terminal, but you can send the one-liner to a cloud AI instead.
+
+## See the finished output in 30 seconds
+
+This command runs the whole flow with the repository's **fictional sample** and
+produces three files:
+
+```text
+cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --demo --out output/demo
+```
+
+| File | What it is |
+| --- | --- |
+| `output/demo/resume.pdf` | Two A4 pages, selectable text, ready to submit |
+| `output/demo/resume.html` | The same resume as a web page; click to edit |
+| `output/demo/review.json` | Layout and fact review record for you or the AI to check |
+
+The sample data is made up, every page says "fictional sample, do not submit",
+and it cannot be mistaken for a real resume.
 
 ## How you use it
 
-After installing, say one sentence to your agent:
+After installing, say one sentence to your AI:
 
 > Use $smart-resume to tailor my resume to this JD screenshot. Read the materials
 > you are authorized to access, ask for my old resume first if that is not enough,
 > then ask about the rest one item at a time. Use only the exact JD title.
 
-The agent reads your materials, asks for what is missing, reorders the relevant
+The AI reads your materials, asks for what is missing, reorders the relevant
 experience around that role, produces the PDF and editable version, and checks
 every page. It does not invent experience and does not mix in another role.
 
-## Table of Contents
-
-- [Install](#install)
-- [See it in 30 seconds](#see-it-in-30-seconds)
-- [How you use it](#how-you-use-it)
-- [Structure](#structure)
-- [Limits](#limits)
-- [Repository status](#repository-status)
-- [Contributing](#contributing)
-
-
-## Structure
+## What is inside
 
 ```text
 smart-resume/
@@ -85,16 +113,16 @@ smart-resume/
 ```
 
 
-## Limits
+## What it does not do
 
 - The skill lives in `skills/smart-resume/`. The scripts validate and typeset;
-  the host agent reads the screenshot and tailors the content.
-- The editable format is HTML. **DOCX is not provided**, and HTML edits do not
-  update the PDF; change the JSON and regenerate.
-- Remembered experience needs your confirmation. Scripts can check that a
-  source exists; they cannot judge whether it is true.
-- It never submits applications or uploads anything publicly; external actions
-  require your authorization.
+  reading the screenshot and picking the right experience is the host AI's job.
+- The editable format is HTML. **There is no Word/DOCX export**; HTML edits do
+  not update the PDF, so change the JSON and regenerate.
+- Remembered experience needs your confirmation. Scripts can check that a source
+  exists; they cannot judge whether it is true.
+- It never submits applications or uploads anything; it asks before touching
+  any external system.
 
 ## Repository status
 
@@ -109,7 +137,10 @@ smart-resume/
 The READMEs are generated by `scripts/render_readme.py` from `templates/` and
 `data/project.json`. Edit the template or the data file, then regenerate.
 
-## Contributing
+## License
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
-Changes are listed in [CHANGELOG.md](CHANGELOG.md); licensing is in [LICENSE](LICENSE).
+This project uses the **0BSD** license (see [LICENSE](LICENSE)): use it, modify
+it and redistribute it, including commercially, without attribution. To propose
+improvements or code, read [CONTRIBUTING.md](CONTRIBUTING.md); that file is for
+people who want to build on it, not for people who only want a resume. Every
+change is listed in [CHANGELOG.md](CHANGELOG.md).

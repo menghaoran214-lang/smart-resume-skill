@@ -17,15 +17,9 @@
       "交付兩件：可投的 PDF 和能直接改字的網頁版"
     ],
     "en": [
-      {
-        "Screenshot in, resume out": "it reorders your real work around that one role"
-      },
-      {
-        "Never invents": "unverified work is asked about, the job title is copied verbatim"
-      },
-      {
-        "Two deliverables": "a submittable PDF and an editable web version"
-      }
+      "Screenshot in, resume out: it reorders your real work around that one role",
+      "Never invents: unverified work is asked about, the job title is copied verbatim",
+      "Two deliverables: a submittable PDF and an editable web version"
     ]
   },
   "audience": {
@@ -33,51 +27,28 @@
     "zh-TW": "正在投履歷、想針對某個職缺改一版的人",
     "en": "Anyone job hunting who needs one resume tailored to one role"
   },
-  "install": [
-    "python -m venv .venv",
-    "pip install -r skills/smart-resume/requirements.txt",
-    "python skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume"
-  ],
-  "demo": {
-    "zh-CN": "cd skills/smart-resume && python scripts/resume.py render examples/demo.json --demo --out output/demo",
-    "zh-TW": "cd skills/smart-resume && python scripts/resume.py render examples/demo.json --demo --out output/demo",
-    "en": "cd skills/smart-resume && python scripts/resume.py render examples/demo.json --demo --out output/demo"
+  "install_prompt": {
+    "zh-CN": "请安装这个技能：https://github.com/menghaoran214-lang/smart-resume-skill",
+    "zh-TW": "請安裝這個技能：https://github.com/menghaoran214-lang/smart-resume-skill",
+    "en": "Install this skill: https://github.com/menghaoran214-lang/smart-resume-skill"
   },
+  "install": [
+    "git clone https://github.com/menghaoran214-lang/smart-resume-skill.git",
+    "cd smart-resume-skill",
+    "python3 -m pip install -r skills/smart-resume/requirements.txt",
+    "python3 skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume"
+  ],
+  "demo": "cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --demo --out output/demo",
   "badges": [
-    {
-      "label": "License",
-      "message": "0BSD",
-      "color": "blue"
-    },
-    {
-      "label": "Skills",
-      "message": 1,
-      "color": "green"
-    },
-    {
-      "label": "Python",
-      "message": "3.10+",
-      "color": "blue"
-    },
-    {
-      "label": "Standard",
-      "message": "Agent Skills",
-      "color": "purple"
-    }
+    {"label": "License", "message": "0BSD", "color": "blue"},
+    {"label": "Skills", "message": "1", "color": "green"},
+    {"label": "Python", "message": "3.10+", "color": "blue"},
+    {"label": "Standard", "message": "Agent Skills", "color": "purple"}
   ],
   "links": [
-    {
-      "text": "简体中文",
-      "target": "README.md"
-    },
-    {
-      "text": "繁體中文",
-      "target": "README.zh-TW.md"
-    },
-    {
-      "text": "English",
-      "target": "README.en.md"
-    }
+    {"text": "简体中文", "target": "README.md"},
+    {"text": "繁體中文", "target": "README.zh-TW.md"},
+    {"text": "English", "target": "README.en.md"}
   ],
   "repo": "menghaoran214-lang/smart-resume-skill"
 }
