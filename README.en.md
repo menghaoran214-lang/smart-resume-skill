@@ -152,8 +152,3 @@ smart-resume/
 
 This project uses the [MIT License](LICENSE): use, modify and ship it
 commercially, no attribution required.
-
-Common choices are MIT, Apache-2.0, GPL and 0BSD. MIT is the most permissive
-and rarely blocks use; Apache-2.0 adds a patent grant; GPL requires derivative
-works to stay open; 0BSD is close to public domain. MIT keeps it easiest for
-others to reuse.

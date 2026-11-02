@@ -15,3 +15,12 @@ the packaging allowlist is not a personal-data detector.
 
 Use a focused PR with the behavior changed, validation performed and remaining
 limitations. Do not claim remote CI or native installation based on local checks.
+
+## License choice
+
+The project uses the MIT License, kept in `LICENSE` and
+`skills/smart-resume/LICENSE`. Common alternatives are MIT, Apache-2.0, GPL
+and 0BSD: MIT is the most permissive and rarely blocks reuse, Apache-2.0 adds
+a patent grant, GPL requires derivative works to stay open, and 0BSD is close
+to public domain. Changing the license means replacing both license files and
+the badge in `data/project.json`.
