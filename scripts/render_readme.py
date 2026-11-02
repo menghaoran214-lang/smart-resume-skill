@@ -6,6 +6,7 @@ Rendering is idempotent, so CI can fail when a README is out of date.
 """
 
 import argparse
+import difflib
 import json
 from pathlib import Path
 import re
@@ -132,6 +133,10 @@ def write(results, check=False):
         if current == body:
             continue
         changed.append(name)
+        if check and current is not None:
+            diff = list(difflib.unified_diff(current.splitlines(), body.splitlines(),
+                                             "committed", "generated", lineterm=""))[:40]
+            print("\n".join(diff))
         if not check:
             target.write_text(body, encoding="utf-8")
     return changed
