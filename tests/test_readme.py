@@ -50,7 +50,7 @@ class RenderTests(unittest.TestCase):
         for name in ("README.md", "README.zh-TW.md", "README.en.md"):
             body = (ROOT / name).read_text(encoding="utf-8")
             self.assertIn('<p align="center">', body)
-            self.assertIn("assets/banner.png", body)
+            self.assertRegex(body, r"assets/banner\.(zh-CN|zh-TW|en)\.png")
             self.assertIn("img.shields.io/badge/", body)
             self.assertNotIn("{{", body)
 

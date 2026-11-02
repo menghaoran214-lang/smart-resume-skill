@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="assets/banner.png" alt="Smart Resume" width="760">
-</p>
+{{BANNER}}
 
 <h1 align="center">{{TITLE}}</h1>
 

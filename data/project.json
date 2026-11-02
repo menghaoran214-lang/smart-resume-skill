@@ -1,5 +1,10 @@
 {
   "name": "Smart Resume",
+  "titles": {
+    "zh-CN": "智能简历",
+    "zh-TW": "智慧履歷",
+    "en": "Smart Resume"
+  },
   "tagline": {
     "zh-CN": "一张 JD 截图 + 你已有的资料 → 一份不编造的两页 A4 简历",
     "zh-TW": "一張 JD 截圖 + 你既有的資料 → 一份不捏造的兩頁 A4 履歷",

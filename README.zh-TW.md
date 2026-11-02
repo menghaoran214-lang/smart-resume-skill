@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Smart Resume" width="760">
+  <img src="assets/banner.zh-TW.png" alt="Smart Resume" width="820">
 </p>
 
-<h1 align="center">Smart Resume</h1>
+<h1 align="center">智慧履歷</h1>
 
 <p align="center"><b>一張 JD 截圖 + 你既有的資料 → 一份不捏造的兩頁 A4 履歷</b></p>
 

@@ -5,13 +5,16 @@
 
 PYTHON ?= python
 
-.PHONY: help generate check test package
+.PHONY: help generate banner check test package
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
 
-generate: ## Regenerate the three README files
+generate: banner ## Regenerate the three README files
 	$(PYTHON) scripts/render_readme.py
+
+banner: ## Regenerate the language banner images
+	$(PYTHON) scripts/make_banner.py
 
 check: ## Fail when a README is out of date
 	$(PYTHON) scripts/render_readme.py --check

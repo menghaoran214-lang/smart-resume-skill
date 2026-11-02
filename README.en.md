@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Smart Resume" width="760">
+  <img src="assets/banner.en.png" alt="Smart Resume" width="820">
 </p>
 
 <h1 align="center">Smart Resume</h1>
