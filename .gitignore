@@ -12,3 +12,4 @@ private-resume/
 *.png
 *.jpg
 *.jpeg
+!assets/banner.png

@@ -1,171 +1,110 @@
 [简体中文](README.md) · [繁體中文](README.zh-TW.md) · [English](README.en.md)
 
-# Smart Resume Skill
+<p align="center">
+  <img src="assets/banner.png" alt="Smart Resume" width="820">
+</p>
 
-**A JD screenshot + existing materials → a tailored resume with traceable claims.**
+<img src="https://img.shields.io/badge/License-0BSD-blue.svg" alt="License: 0BSD" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
 
-Version **0.1.0** · Python **3.10+** · License **0BSD**
+<p align="center"><b>A JD screenshot plus your existing materials into a truthful two-page A4 resume</b></p>
 
-An installable Agent Skill. The host agent reads the job description, consults
-authorized materials and tailors content. Local scripts validate the input,
-create an A4 PDF and editable HTML, and write a separate private review record.
-There is no bundled model, memory service, OCR service or standalone chat app.
+- {'Screenshot in, resume out': 'it reorders your real work around that one role'}
+- {'Never invents': 'unverified work is asked about, the job title is copied verbatim'}
+- {'Two deliverables': 'a submittable PDF and an editable web version'}
 
-## Preview
+**Who it is for**: Anyone job hunting who needs one resume tailored to one role
 
-[`examples/demo.json`](examples/demo.json) contains entirely fictional Chinese
-data. Run the demo commands below to generate actual PDF and HTML files.
-Every demo page carries a notice prohibiting application use. The sparse
-example illustrates structure, not a real candidate's complete two-page history.
-See [acceptance](docs/ACCEPTANCE.md) and [task scope](docs/TASKS.md).
+---
 
-## Install and quick start
-
-Extract the ZIP and enter the `smart-resume` directory containing `SKILL.md`.
+## Install
 
 ```text
 python -m venv .venv
+pip install -r skills/smart-resume/requirements.txt
+python skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume
 ```
 
-Windows PowerShell:
+On Windows use `.\.venv\Scripts\python.exe` in place of `python`. The installer
+refuses to overwrite an existing directory and never modifies your agent's
+environment; keep dependencies in your own virtual environment.
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe scripts/install.py --target "$HOME/.codex/skills/smart-resume"
-```
-
-macOS/Linux:
-
-```sh
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python scripts/install.py --target "$HOME/.codex/skills/smart-resume"
-```
-
-Use your host's supported skills directory if different. The target must not
-exist. The installer copies allowlisted project files, excludes personal
-artifacts, and refuses to overwrite an existing version. It does not install
-dependencies into your host agent's Python environment; continue to use the
-interpreter where you installed the requirements.
-Have the agent rediscover skills. Where discovery is unsupported, read
-`SKILL.md` directly and report that this is not native installation. Manual
-installation may copy the clean project folder into a supported skills directory.
-
-In the following commands, `python` means the virtual environment interpreter:
+## See it in 30 seconds
 
 ```text
-python scripts/resume.py validate examples/demo.json --demo
-python scripts/resume.py render examples/demo.json --demo --out output/demo
+cd skills/smart-resume && python scripts/resume.py render examples/demo.json --demo --out output/demo
 ```
 
-Outputs: `resume.pdf`, `resume.html`, private `review.json`. Existing output
-directories are preserved; choose a new directory for another run.
-Windows font discovery prefers SimSun. Elsewhere provide a ReportLab-supported
-TrueType font covering all output characters with `--font /path/to/font.ttf`
-or `SMART_RESUME_FONT`. Missing glyphs cause an error. System fonts are not
-redistributed. The default demo needs Chinese glyph coverage.
+You get `resume.pdf` (two A4 pages), `resume.html` (editable) and `review.json`
+(acceptance record). The sample data is entirely fictional and every page
+carries a notice that it must not be submitted.
 
-## Use with a real candidate
+## How you use it
 
-Tell your agent:
+After installing, say one sentence to your agent:
 
-> Use $smart-resume to tailor my resume to this JD screenshot. First read relevant
-> materials and memory you are authorized to access. If history is insufficient,
-> ask for my old resume first, then ask about remaining missing items one at a
-> time. Use only the exact JD title as my target role. Default to two A4 pages,
-> deliver PDF and an editable version, inspect every page, and invent nothing.
+> Use $smart-resume to tailor my resume to this JD screenshot. Read the materials
+> you are authorized to access, ask for my old resume first if that is not enough,
+> then ask about the rest one item at a time. Use only the exact JD title.
 
-Read existing materials before requesting them again. If necessary, request
-the old resume first. Ask whether to provide or omit a photo; never require it.
-Confirm remembered claims, resolve conflicting facts, and do not access
-unauthorized accounts or other people's information. Ask about unreadable
-screenshots instead of guessing the job title. Vision is supplied by the host.
+The agent reads your materials, asks for what is missing, reorders the relevant
+experience around that role, produces the PDF and editable version, and checks
+every page. It does not invent experience and does not mix in another role.
 
-Keep real data in a private directory outside this repository:
+## Table of Contents
 
-```text
-python scripts/resume.py init --out ../private-resume/resume.json
-python scripts/resume.py validate ../private-resume/resume.json
-python scripts/resume.py render ../private-resume/resume.json --out ../private-resume/delivery
-```
+- [Install](#install)
+- [See it in 30 seconds](#see-it-in-30-seconds)
+- [How you use it](#how-you-use-it)
+- [Structure](#structure)
+- [Limits](#limits)
+- [Repository status](#repository-status)
+- [Contributing](#contributing)
 
-The incomplete intake intentionally fails validation until completed.
-`document_supported` means a document supports a claim; `user_confirmed` means
-the candidate confirmed it. Neither means independent third-party verification.
-Pending, inferred and contradicted claims cannot be selected for the resume.
-Scripts validate structure and source eligibility; they cannot determine truth
-or assess job fit.
-
-## Delivery and layout acceptance
-
-Default: two A4 pages, 10.5 pt body. Ask about one page if content is insufficient;
-never pad history. Overflow fails rather than shrinking or truncating text.
-Photos may be omitted or embedded from private PNG/JPEG files with no network
-loading. PDF text is selectable. HTML supports click-to-edit and browser Save
-As. JSON is the content source for regeneration. **The editable format is HTML;
-DOCX is not included.** HTML edits do not automatically update PDF.
-
-Generated `review.json` starts factual, PDF visual and HTML review as `pending`.
-Inspect every PDF page image and compare text with sources before recording
-acceptance. HTML and PDF use separate layout engines; HTML printing is not PDF
-verification. Send only the resume to employers; keep source and gap records private.
 
 ## Structure
 
 ```text
 smart-resume/
-├── SKILL.md                 Agent entry point
-├── README*.md               Three language homepages
-├── assets/                  Intake and HTML templates
-├── examples/demo.json       Fictional fixture
-├── references/workflow.md   Evidence and acceptance contract
-├── scripts/                 Render, install, package
-├── tests/                   Behavioral tests
-├── docs/                    Scope and acceptance
-└── .github/                 Checks and PR template
+│   ├── intake.json
+│   ├── resume.html
+│   ├── demo.json
+├── LICENSE
+│   ├── workflow.md
+├── requirements.txt
+│   ├── install.py
+│   ├── package.py
+│   ├── resume.py
+├── SKILL.md
+│   ├── test_resume.py
+├── VERSION
 ```
 
-## Usage example
 
-Give the scripts a completed private file and receive the three artifacts:
+## Limits
 
-```text
-python scripts/resume.py validate ../private-resume/resume.json
-python scripts/resume.py render ../private-resume/resume.json --out ../private-resume/delivery
-```
+- The skill lives in `skills/smart-resume/`. The scripts validate and typeset;
+  the host agent reads the screenshot and tailors the content.
+- The editable format is HTML. **DOCX is not provided**, and HTML edits do not
+  update the PDF; change the JSON and regenerate.
+- Remembered experience needs your confirmation. Scripts can check that a
+  source exists; they cannot judge whether it is true.
+- It never submits applications or uploads anything publicly; external actions
+  require your authorization.
 
-Output: `delivery/resume.pdf` (two A4 pages), `delivery/resume.html`
-(editable) and `delivery/review.json` (layout and fact review record).
-Missing or conflicting information fails the scripts instead of being
-invented.
+## Repository status
+
+<p align="center">
+  <img src="assets/stats.svg" alt="repository stats" height="26">
+</p>
+
+- 最新提交 / latest commit：`aea6bd0` · 2026-11-02
+- CI 状态：见仓库顶部 Actions 徽章
+
+
+The READMEs are generated by `scripts/render_readme.py` from `templates/` and
+`data/project.yaml`. Edit the template or the data file, then regenerate.
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md). Agent rules are in [AGENTS.md](AGENTS.md).
-
-## License
-
-Released under the 0BSD license in [LICENSE](LICENSE).
-
-## Development and packaging
-
-```text
-python -m unittest discover -s tests -v
-python scripts/package.py --out dist/smart-resume-0.1.0.zip
-```
-
-Packaging uses a fixed allowlist and prints SHA-256. Personal inputs, photos,
-`.venv` and outputs are excluded. An allowlist cannot recognize personal data
-inserted into an allowed file; review the diff before publishing.
-CI is configured for Windows/Linux; configuration is not evidence of a remote run.
-Read [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
-
-## FAQ and privacy
-
-- **No history access?** Only relevant materials actually authorized by the host can be used.
-- **Can a screenshot alone finish a resume?** Candidate history is still required.
-- **Font failure?** Supply a supported TrueType font with full coverage; complex shaping needs separate validation.
-- **Can examples be public?** These examples are fictional. Never add real contact details, photos or resumes.
-- **Automatic applications or GitHub pushes?** Neither is authorized by this skill.
-- **Will installation activate it automatically?** Discovery and triggering depend on the host; confirm there.
-
-See [LICENSE](LICENSE). All three READMEs describe 0.1.0 and must be updated together.
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
+Changes are listed in [CHANGELOG.md](CHANGELOG.md); licensing is in [LICENSE](LICENSE).

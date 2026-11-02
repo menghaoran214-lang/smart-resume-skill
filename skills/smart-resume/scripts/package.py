@@ -8,13 +8,10 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = (
-    "SKILL.md", "README.md", "README.en.md", "README.zh-TW.md", "VERSION",
-    "LICENSE", "AGENTS.md", "CONTRIBUTING.md", "CHANGELOG.md", ".gitignore",
-    "requirements.txt", "references/workflow.md", "assets/intake.json",
+    "SKILL.md", "VERSION", "LICENSE", "requirements.txt",
+    "references/workflow.md", "assets/intake.json",
     "assets/resume.html", "examples/demo.json", "scripts/resume.py",
     "scripts/install.py", "scripts/package.py", "tests/test_resume.py",
-    ".github/workflows/check.yml", ".github/pull_request_template.md",
-    "docs/TASKS.md", "docs/ACCEPTANCE.md",
 )
 
 

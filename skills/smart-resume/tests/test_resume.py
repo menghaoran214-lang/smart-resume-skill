@@ -185,12 +185,13 @@ class DistributionTests(unittest.TestCase):
                 self.assertFalse(any("output/" in name or "private/" in name for name in archive.namelist()))
 
     def test_language_links_resolve(self):
+        repository_root = resume.ROOT.parent.parent
         for name in ("README.md", "README.en.md", "README.zh-TW.md"):
-            first_line = (resume.ROOT / name).read_text(encoding="utf-8").splitlines()[0]
+            first_line = (repository_root / name).read_text(encoding="utf-8").splitlines()[0]
             targets = re.findall(r"\]\((README[^)]+)\)", first_line)
             self.assertEqual(len(targets), 3)
             for target in targets:
-                self.assertTrue((resume.ROOT / target).is_file())
+                self.assertTrue((repository_root / target).is_file())
 
 
 if __name__ == "__main__":

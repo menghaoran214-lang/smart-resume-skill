@@ -1,14 +1,17 @@
 # Project development
 
-Scope: this Smart Resume project only.
+Scope: this Smart Resume repository only.
 
-- Keep real candidate materials outside the repository. Examples/tests must be
-  synthetic; do not fetch the user's history while developing the public skill.
-- Keep all three README versions aligned, including language links, commands,
-  version and limitations. Do not imply model/OCR automation in the Python CLI.
-- Run `python -m unittest discover -s tests -v` for behavior changes.
-- Keep SKILL.md focused on agent behavior; put input details in references.
-- Check the `scripts/package.py` allowlist when adding distribution files.
+- The READMEs are generated products. Edit `templates/` and `data/project.yaml`,
+  then run `python scripts/render_readme.py`. Never edit `README*.md` by hand.
+- The skill itself lives in `skills/smart-resume/`. Keep it minimal: SKILL.md,
+  scripts, references, assets, examples.
+- Keep real candidate materials outside the repository. Examples and tests must
+  be synthetic; do not fetch the user's history while developing the skill.
+- Do not imply model or OCR automation in the Python CLI; the host agent does
+  screenshot reading and tailoring.
+- Run `make test` (repository tests plus skill tests) for behavior changes.
+- Check the `skills/smart-resume/scripts/package.py` allowlist when adding files.
 - Do not shrink resume body text or silently discard overflowing content.
 - Never change pending review states to passed without performing the review.
 - No GitHub creation, push, public upload or application submission without

@@ -1,0 +1,51 @@
+name: Smart Resume
+tagline:
+  zh-CN: 一张 JD 截图 + 你已有的资料 → 一份不编造的两页 A4 简历
+  zh-TW: 一張 JD 截圖 + 你既有的資料 → 一份不捏造的兩頁 A4 履歷
+  en: A JD screenshot plus your existing materials into a truthful two-page A4 resume
+what:
+  zh-CN:
+    - 岗位截图进，简历出：截图交给它，它照着这个岗位重排你做过的事
+    - 不编造：没做过的不写，记不清的先问你，岗位名照抄截图
+    - 交付两件：可投的 PDF 和能直接改字的网页版
+  zh-TW:
+    - 職缺截圖進，履歷出：截圖交給它，它照著這個職缺重排你做過的事
+    - 不捏造：沒做過的不寫，記不清的先問你，職缺名照抄截圖
+    - 交付兩件：可投的 PDF 和能直接改字的網頁版
+  en:
+    - Screenshot in, resume out: it reorders your real work around that one role
+    - Never invents: unverified work is asked about, the job title is copied verbatim
+    - Two deliverables: a submittable PDF and an editable web version
+audience:
+  zh-CN: 正在投简历、想针对某个岗位改一版的人
+  zh-TW: 正在投履歷、想針對某個職缺改一版的人
+  en: Anyone job hunting who needs one resume tailored to one role
+install:
+  - python -m venv .venv
+  - pip install -r skills/smart-resume/requirements.txt
+  - python skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume
+demo:
+  zh-CN: cd skills/smart-resume && python scripts/resume.py render examples/demo.json --demo --out output/demo
+  zh-TW: cd skills/smart-resume && python scripts/resume.py render examples/demo.json --demo --out output/demo
+  en: cd skills/smart-resume && python scripts/resume.py render examples/demo.json --demo --out output/demo
+badges:
+  - label: License
+    message: 0BSD
+    color: blue
+  - label: Skills
+    message: 1
+    color: green
+  - label: Python
+    message: 3.10+
+    color: blue
+  - label: Standard
+    message: Agent Skills
+    color: purple
+links:
+  - text: 简体中文
+    target: README.md
+  - text: 繁體中文
+    target: README.zh-TW.md
+  - text: English
+    target: README.en.md
+repo: menghaoran214-lang/smart-resume-skill
