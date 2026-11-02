@@ -47,12 +47,9 @@ def build_badges(data):
     return " ".join(images)
 
 
-def build_banner(language):
-    image = {"zh-CN": "assets/banner.zh-CN.png",
-             "zh-TW": "assets/banner.zh-TW.png",
-             "en": "assets/banner.en.png"}[language]
+def build_banner():
     return ('<p align="center">\n'
-            f'  <img src="{image}" alt="Smart Resume" width="820">\n'
+            '  <img src="assets/banner.png" alt="Smart Resume" width="820">\n'
             '</p>')
 
 
@@ -84,7 +81,7 @@ def render(language, data):
     output_name, template_name = LANGUAGES[language]
     body = (TEMPLATES / template_name).read_text(encoding="utf-8")
     replacements = {
-        "{{BANNER}}": build_banner(language),
+        "{{BANNER}}": build_banner(),
         "{{BADGES}}": build_badges(data),
         "{{TITLE}}": data["titles"][language],
         "{{LANG_SWITCH}}": " · ".join(

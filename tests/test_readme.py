@@ -50,13 +50,20 @@ class RenderTests(unittest.TestCase):
         for name in ("README.md", "README.zh-TW.md", "README.en.md"):
             body = (ROOT / name).read_text(encoding="utf-8")
             self.assertIn('<p align="center">', body)
-            self.assertRegex(body, r"assets/banner\.(zh-CN|zh-TW|en)\.png")
+            self.assertIn("assets/banner.png", body)
             self.assertIn("img.shields.io/badge/", body)
             self.assertNotIn("{{", body)
 
     def test_skill_lives_in_skills_directory(self):
         self.assertTrue((ROOT / "skills/smart-resume/SKILL.md").is_file())
         self.assertTrue((ROOT / "skills/smart-resume/scripts/resume.py").is_file())
+
+    def test_banner_image_is_committed(self):
+        banner = ROOT / "assets/banner.png"
+        self.assertTrue(banner.is_file())
+        ignored = (ROOT / ".gitignore").read_text(encoding="utf-8")
+        self.assertIn("!assets/banner.png", ignored,
+                      "the banner must stay committed or the README shows a broken image")
 
 
 if __name__ == "__main__":

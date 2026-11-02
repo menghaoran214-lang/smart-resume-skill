@@ -47,7 +47,7 @@
   "badges": [
     {
       "label": "License",
-      "message": "0BSD",
+      "message": "MIT",
       "color": "blue"
     },
     {
@@ -108,7 +108,7 @@
         "anchor": "limits"
       },
       {
-        "title": "开源协议",
+        "title": "许可证",
         "anchor": "license"
       }
     ],
@@ -138,7 +138,7 @@
         "anchor": "limits"
       },
       {
-        "title": "開源授權",
+        "title": "授權條款",
         "anchor": "license"
       }
     ],

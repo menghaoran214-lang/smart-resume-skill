@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.en.png" alt="Smart Resume" width="820">
+  <img src="assets/banner.png" alt="Smart Resume" width="820">
 </p>
 
 <h1 align="center">Smart Resume</h1>
@@ -7,7 +7,7 @@
 <p align="center"><b>A JD screenshot plus your existing materials into a truthful two-page A4 resume</b></p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/License-0BSD-blue.svg" alt="License: 0BSD" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
+<img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
 </p>
 
 <p align="center"><a href="README.md">简体中文</a> · <a href="README.zh-TW.md">繁體中文</a> · <a href="README.en.md">English</a></p>
@@ -150,4 +150,10 @@ smart-resume/
 
 ## License
 
-[0BSD](LICENSE) · Use, modify and use commercially; provided as is, without warranty.
+This project uses the [MIT License](LICENSE): use, modify and ship it
+commercially, no attribution required.
+
+Common choices are MIT, Apache-2.0, GPL and 0BSD. MIT is the most permissive
+and rarely blocks use; Apache-2.0 adds a patent grant; GPL requires derivative
+works to stay open; 0BSD is close to public domain. MIT keeps it easiest for
+others to reuse.

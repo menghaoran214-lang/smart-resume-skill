@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.zh-TW.png" alt="Smart Resume" width="820">
+  <img src="assets/banner.png" alt="Smart Resume" width="820">
 </p>
 
 <h1 align="center">智慧履歷</h1>
@@ -7,7 +7,7 @@
 <p align="center"><b>一張 JD 截圖 + 你既有的資料 → 一份不捏造的兩頁 A4 履歷</b></p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/License-0BSD-blue.svg" alt="License: 0BSD" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
+<img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" height="20"> <img src="https://img.shields.io/badge/Skills-1-green.svg" alt="Skills: 1" height="20"> <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python: 3.10+" height="20"> <img src="https://img.shields.io/badge/Standard-Agent%20Skills-purple.svg" alt="Standard: Agent Skills" height="20">
 </p>
 
 <p align="center"><a href="README.md">简体中文</a> · <a href="README.zh-TW.md">繁體中文</a> · <a href="README.en.md">English</a></p>
@@ -32,7 +32,7 @@
 - [實際怎麼用](#usage)
 - [這個技能長什麼樣](#structure)
 - [它不做什麼](#limits)
-- [開源授權](#license)
+- [授權條款](#license)
 
 
 <a id="install"></a>
@@ -135,6 +135,8 @@ smart-resume/
 
 <a id="license"></a>
 
-## 開源授權
+## 授權條款
 
-[0BSD 授權](LICENSE) · 可使用、修改及商用；按原樣提供，不作擔保。
+本專案採用 [MIT 授權條款](LICENSE)：可自由使用、修改、商用，無需署名。
+
+常見選項有 MIT、Apache-2.0、GPL、0BSD：MIT 最寬鬆、幾乎不限制使用；Apache-2.0 額外要求保留專利聲明；GPL 要求衍生作品同樣開源；0BSD 最接近公共領域。這裡選 MIT，別人拿去用最省心。

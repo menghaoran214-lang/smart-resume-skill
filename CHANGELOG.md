@@ -4,7 +4,8 @@
 
 - Fixed centered language links and explicit section anchors in all three READMEs.
 - Added collapsible installation sublinks and clarified installation prerequisites.
-- Removed repository statistics and shortened the license footer, keeping 0BSD.
+- Removed repository statistics and shortened the license footer.
+- Switched the license from 0BSD to MIT and renamed the section to 许可证 / License.
 - Clarified that the fictional demo generates files rather than tailoring a real resume.
 
 ## 0.2.0 - 2026-11-02

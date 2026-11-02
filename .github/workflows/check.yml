@@ -21,7 +21,5 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: README is up to date
         run: python scripts/render_readme.py --check
-      - name: Banner images are up to date
-        run: python scripts/make_banner.py --check
       - name: Package the skill
         run: python skills/smart-resume/scripts/package.py --out dist/smart-resume-skill-0.1.0.zip
