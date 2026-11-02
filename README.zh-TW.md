@@ -89,8 +89,8 @@ smart-resume/
   <img src="assets/stats.svg" alt="repository stats" height="26">
 </p>
 
-- 最新提交 / latest commit：`8e4c802` · 2026-11-02
-- CI 状态：见仓库顶部 Actions 徽章
+- 技能版本 / skill version：`0.1.0`
+- 上方统计图由定时工作流自动刷新；CI 状态见仓库顶部 Actions 徽章
 
 
 README 由 `scripts/render_readme.py` 依 `templates/` 與 `data/project.json` 產生，

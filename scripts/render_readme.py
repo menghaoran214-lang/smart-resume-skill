@@ -9,7 +9,6 @@ import argparse
 import json
 from pathlib import Path
 import re
-import subprocess
 import sys
 
 
@@ -89,17 +88,10 @@ def build_stats_svg():
 
 
 def build_stats():
-    """Report the latest local commit without failing when git is unavailable."""
-    sha, stamp = "local", ""
-    try:
-        sha = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"],
-                             capture_output=True, text=True, timeout=15).stdout.strip() or "local"
-        stamp = subprocess.run(["git", "-C", str(ROOT), "log", "-1", "--format=%cs"],
-                               capture_output=True, text=True, timeout=15).stdout.strip()
-    except (OSError, subprocess.SubprocessError):
-        pass
-    suffix = f" · {stamp}" if stamp else ""
-    return f"- 最新提交 / latest commit：`{sha}`{suffix}\n- CI 状态：见仓库顶部 Actions 徽章\n"
+    """Static status lines. Anything commit-specific belongs in the stats image."""
+    version = (ROOT / "skills/smart-resume/VERSION").read_text(encoding="utf-8").strip()
+    return (f"- 技能版本 / skill version：`{version}`\n"
+            "- 上方统计图由定时工作流自动刷新；CI 状态见仓库顶部 Actions 徽章\n")
 
 
 def render(language, data):
