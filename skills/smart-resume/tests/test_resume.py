@@ -187,8 +187,8 @@ class DistributionTests(unittest.TestCase):
     def test_language_links_resolve(self):
         repository_root = resume.ROOT.parent.parent
         for name in ("README.md", "README.en.md", "README.zh-TW.md"):
-            first_line = (repository_root / name).read_text(encoding="utf-8").splitlines()[0]
-            targets = re.findall(r"\]\((README[^)]+)\)", first_line)
+            body = (repository_root / name).read_text(encoding="utf-8")
+            targets = re.findall(r"\]\((README[^)]+)\)", body.split("---")[0])
             self.assertEqual(len(targets), 3)
             for target in targets:
                 self.assertTrue((repository_root / target).is_file())
