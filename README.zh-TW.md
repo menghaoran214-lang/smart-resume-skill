@@ -61,18 +61,23 @@ Agent 會：讀你的資料 → 缺什麼問你 → 挑相關經歷重排 → �
 
 ```text
 smart-resume/
+├── assets/
 │   ├── intake.json
-│   ├── resume.html
-│   ├── demo.json
-├── LICENSE
-│   ├── workflow.md
-├── requirements.txt
+│   └── resume.html
+├── examples/
+│   └── demo.json
+├── references/
+│   └── workflow.md
+├── scripts/
 │   ├── install.py
 │   ├── package.py
-│   ├── resume.py
+│   └── resume.py
+├── tests/
+│   └── test_resume.py
+├── LICENSE
+├── requirements.txt
 ├── SKILL.md
-│   ├── test_resume.py
-├── VERSION
+└── VERSION
 ```
 
 

@@ -66,17 +66,27 @@ def build_banner():
 
 
 def build_skill_tree():
+    """Draw the skill directory as a tree with platform-independent ordering."""
     skill_root = ROOT / "skills/smart-resume"
-    rows = []
-    paths = [path for path in sorted(skill_root.rglob("*"))
-             if path.is_file() and "__pycache__" not in path.parts]
-    for path in paths:
-        if not path.is_file():
-            continue
-        parts = path.relative_to(skill_root).parts
-        prefix = "│   " * (len(parts) - 1) + "├── "
-        rows.append(f"{prefix}{parts[-1]}")
-    return "```text\nsmart-resume/\n" + "\n".join(rows) + "\n```\n"
+    lines = []
+
+    def walk(directory, prefix):
+        entries = sorted(directory.iterdir(),
+                         key=lambda item: (item.name.lower(), item.name))
+        directories = [item for item in entries if item.is_dir() and item.name != "__pycache__"]
+        files = [item for item in entries if item.is_file() and item.name != "__pycache__"]
+        for index, item in enumerate(directories + files):
+            last = index == len(directories) + len(files) - 1
+            connector = "└── " if last else "├── "
+            if item.is_dir():
+                lines.append(f"{prefix}{connector}{item.name}/")
+                walk(item, prefix + ("    " if last else "│   "))
+            else:
+                lines.append(f"{prefix}{connector}{item.name}")
+
+    lines.append("smart-resume/")
+    walk(skill_root, "")
+    return "```text\n" + "\n".join(lines) + "\n```\n"
 
 
 def build_stats_svg():
