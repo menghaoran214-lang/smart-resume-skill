@@ -29,7 +29,7 @@
 - [What this is](#what)
 - [How to install](#install)
 - [See the finished output in 30 seconds](#demo)
-- [How you use it](#usage)
+- [How to use it](#usage)
 - [What is inside](#structure)
 - [What it does not do](#limits)
 - [License](#license)
@@ -95,7 +95,7 @@ and it cannot be mistaken for a real resume.
 
 <a id="usage"></a>
 
-## How you use it
+## How to use it
 
 After installing, say one sentence to your AI:
 

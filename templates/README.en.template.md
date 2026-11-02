@@ -79,7 +79,7 @@ and it cannot be mistaken for a real resume.
 
 <a id="usage"></a>
 
-## How you use it
+## How to use it
 
 After installing, say one sentence to your AI:
 
