@@ -58,6 +58,14 @@ locator must actually support the wording; scripts cannot judge that.
 
 ## Produce and verify
 
+Read [references/styles.md](references/styles.md) when selecting a layout, showing
+the gallery, saving personal preferences or recording quality acceptance.
+List personal styles first when the candidate asks to choose. Honor an explicit
+style/profile; otherwise use transparent role-keyword matching and explain the
+recommendation. Read the selected `styles/<id>/STYLE.md` before rendering.
+Six layouts generate actual PDFs: classic, ats, technical, executive, editorial,
+creative. Visual design cannot supply missing career evidence.
+
 Default: two A4 pages, readable 10.5 pt body, selectable text, restrained colors.
 Do not pad thin content to create a fake second page. Ask whether a one-page
 version is preferable if two pages are not justified; the renderer supports
@@ -74,7 +82,9 @@ python scripts/resume.py render <private-work-dir>/resume.json --out <private-wo
 ```
 
 The `init` output intentionally cannot render until completed. Rendering requires
-ReportLab; see README for dependency installation. Use `--font` with a licensed
+ReportLab; install `requirements.txt` from this skill directory. Quality checks
+also require pypdf; the gallery additionally requires Poppler's pdftoppm.
+Use `--font` with a licensed
 TrueType font covering the resume's characters if automatic font discovery fails.
 Never distribute a system font without permission.
 
@@ -93,6 +103,9 @@ until the PDF visual check and factual review pass. `review.json` starts with
 visual/factual review pending; record human/agent findings there after inspection.
 
 Deliver PDF, editable HTML and a brief explanation of remaining gaps.
+Run `scripts/quality.py DELIVERY INPUT` after inspection and record only reviews
+actually performed. A pending or failed review blocks acceptance. Synthetic demos
+may be accepted as previews, never as application-ready candidate resumes.
 Keep the evidence ledger private and separate from employer-facing files.
 Never send an application, upload a resume publicly, or push GitHub content
 without the user's authorization. The fictional demo requires `--demo` and is

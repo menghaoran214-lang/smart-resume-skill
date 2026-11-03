@@ -15,6 +15,20 @@ jobs:
           python-version: "3.10"
       - run: python -m pip install -r skills/smart-resume/requirements.txt
       - run: python -m pip install Pillow
+      - name: Gallery and CJK dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils fonts-arphic-uming
+          echo "SMART_RESUME_FONT=/usr/share/fonts/truetype/arphic/uming.ttc" >> "$GITHUB_ENV"
+      - name: Gallery dependency (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install poppler --yes --no-progress
+          $popplerBinary = Get-ChildItem C:\ProgramData\chocolatey\lib\poppler -Recurse -Filter pdftoppm.exe | Select-Object -First 1
+          if (-not $popplerBinary) { throw "pdftoppm was not installed" }
+          $popplerBinary.DirectoryName | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Skill tests
         run: python -m unittest discover -s skills/smart-resume/tests -v
       - name: README tests
@@ -22,4 +36,4 @@ jobs:
       - name: README is up to date
         run: python scripts/render_readme.py --check
       - name: Package the skill
-        run: python skills/smart-resume/scripts/package.py --out dist/smart-resume-skill-0.1.0.zip
+        run: python skills/smart-resume/scripts/package.py --out dist/smart-resume-skill-0.2.0.zip

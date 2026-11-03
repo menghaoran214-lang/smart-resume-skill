@@ -1,5 +1,62 @@
 # Acceptance
 
+## Current release: 0.2.0 - 2026-11-03
+
+Local verification on Windows with the bundled Python 3.13 runtime, ReportLab,
+pypdf, Poppler and native ego-browser. The existing implementation was inspected
+before extending it. The initial local verification did not create a GitHub
+repository, push changes, upload samples or install globally. `sources/` was not modified.
+The user's follow-up authorizes synchronization to the existing
+`menghaoran214-lang/smart-resume-skill` repository. Repository visibility stays
+unchanged; only synthetic preview PDFs and their contact sheet are included.
+
+| Check | Observed result |
+| --- | --- |
+| Skill creator quick validator | Passed |
+| Repository suite | 8 tests passed |
+| Skill suite | 30 tests passed, including 18 style/language rendering combinations |
+| Native make | Not available in this PowerShell environment; both commands in `make test` ran directly |
+| Real preview PDFs | 18 final single-page A4 previews: six layouts in Simplified Chinese, Traditional Chinese and English |
+| Two-page support | All six layouts in all three languages rendered and passed text/layout checks in the suite |
+| PDF text and dimensions | Every selected claim and exact intention found; A4 and page counts passed |
+| Layout integrity | Recorded text boxes remain in bounds and do not overlap |
+| PDF visual inspection | All 18 final pages viewed in three six-style PDF contact sheets; no clipping, overlap or missing glyphs observed |
+| HTML visual inspection | All 18 desktop pages viewed in three six-style browser screenshot contact sheets |
+| Browser checks | 45 final gallery/filter/resume observations; all three languages at 1440 and 390 px; no horizontal overflow or clipped text |
+| Real gallery assets | PDF-generated PNGs loaded; six cards per gallery; filter selected only the requested style |
+| Personal profiles | Save, list, reload, rendered token reuse, contrast rejection, unsafe fields and no-overwrite behavior passed |
+| Overflow behavior | All six layouts refuse oversized text without leaving a partial delivery |
+| Acceptance gate | Pending/failed reviews and changed PDF/input fail; demo previews never become application-ready |
+| Final preview acceptance | 18/18 accepted as synthetic previews; every `application_ready` value remains false |
+| Standalone archive | Extracted archive installed into a fresh local validation directory; installed gallery generated all six PDF/HTML pairs |
+| Distribution | Allowlist, deterministic ZIP bytes and no-overwrite tests passed |
+| Three READMEs | Regenerated from templates/data; language links and generation tests passed |
+
+The final gallery uses `--compact` to combine every fictional section into one
+page without dropping text or shrinking fonts. The original two-page input
+contract is unchanged. Preview PNGs come from the actual PDFs, not mockups.
+The saved `demo-input.json` is the exact input used for each gallery.
+
+Files next to this engineering project under `delivery/`:
+
+- `smart-resume-0.2.0.zip`: installable skill archive.
+- `smart-resume-engineering-0.2.0.zip`: local source engineering project.
+- `smart-resume-gallery-0.2.0/`: Simplified Chinese gallery, PDFs, HTML, images and review records.
+- `smart-resume-gallery-en-0.2.0/` and `smart-resume-gallery-zh-TW-0.2.0/`: English and Traditional Chinese galleries.
+- `smart-resume-browser-qa-0.2.0-final.json`: final browser observations.
+- `smart-resume-quality-0.2.0.json`: detailed acceptance checks for all 18 previews.
+
+Limitations: matching is a transparent keyword heuristic, not an assessment of
+candidate fit. Personal profiles customize a base layout's accent and spacing;
+they do not implement arbitrary new renderer code. PDF and HTML use separate
+layout engines. Browser Save As, HTML-to-PDF synchronization, remote CI and
+host-wide skill discovery were not tested or claimed. Font licenses are not
+bundled; non-Windows CJK generation may need `--font`. Gallery generation requires
+Poppler, while ordinary PDF rendering does not. The prior temporary-directory
+stall was avoided by running tests with a workspace-local TEMP/TMP.
+
+## Historical 0.1.0 verification
+
 Version: 0.1.0. Local implementation date: 2026-11-02.
 
 Local checks performed on Windows on 2026-11-02, using the bundled Python 3.13

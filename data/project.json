@@ -33,9 +33,9 @@
     "en": "Anyone job hunting who needs one resume tailored to one role"
   },
   "install_prompt": {
-    "zh-CN": "请安装这个技能：https://github.com/menghaoran214-lang/smart-resume-skill",
-    "zh-TW": "請安裝這個技能：https://github.com/menghaoran214-lang/smart-resume-skill",
-    "en": "Install this skill: https://github.com/menghaoran214-lang/smart-resume-skill"
+    "zh-CN": "请从 https://github.com/menghaoran214-lang/smart-resume-skill 安装或更新 Smart Resume Skill。先检查已有安装；更新前备份旧版，保留我的简历资料和个人风格，再验证能生成 PDF。",
+    "zh-TW": "請從 https://github.com/menghaoran214-lang/smart-resume-skill 安裝或更新 Smart Resume Skill。先檢查既有安裝；更新前備份舊版，保留我的履歷資料與個人風格，再驗證能產生 PDF。",
+    "en": "Install or update Smart Resume Skill from https://github.com/menghaoran214-lang/smart-resume-skill. Check for an existing installation first, back it up before updating, preserve my private resume data and styles, then verify PDF generation."
   },
   "install": [
     "git clone https://github.com/menghaoran214-lang/smart-resume-skill.git",
@@ -43,7 +43,7 @@
     "python3 -m pip install -r skills/smart-resume/requirements.txt",
     "python3 skills/smart-resume/scripts/install.py --target ~/.codex/skills/smart-resume"
   ],
-  "demo": "cd skills/smart-resume && python3 scripts/resume.py render examples/demo.json --demo --out output/demo",
+  "demo": "cd skills/smart-resume\npython3 scripts/resume.py render examples/demo.json --demo --out output/demo",
   "badges": [
     {
       "label": "License",

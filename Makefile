@@ -21,4 +21,4 @@ test: ## Run repository and skill tests
 	$(PYTHON) -m unittest discover -s skills/smart-resume/tests -v
 
 package: ## Build the installable skill archive
-	$(PYTHON) skills/smart-resume/scripts/package.py --out dist/smart-resume-skill-0.1.0.zip
+	$(PYTHON) skills/smart-resume/scripts/package.py --out dist/smart-resume-skill-0.2.0.zip

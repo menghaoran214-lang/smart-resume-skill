@@ -1,12 +1,19 @@
 # Smart Resume task scope
 
-Requested outcome: an inspectable GitHub repository for the resume skill that
-follows the agreed repository standard, before writing the separate Repo
-Standards Skill.
+Current outcome: an inspectable local Smart Resume engineering project and
+installable 0.2.0 archive, extending the existing implementation. The follow-up
+request authorizes updating the existing `menghaoran214-lang/smart-resume-skill`
+repository, including clear usage, release differences and synthetic PDF samples.
+Do not create another repository or change the existing repository's visibility.
 
 | Requirement | Implementation |
 | --- | --- |
 | Installable skill | `skills/smart-resume/SKILL.md` plus `scripts/install.py` |
+| Six real styles | classic, ats, technical, executive, editorial, creative; independent STYLE.md and shared catalog |
+| Real preview gallery | `scripts/gallery.py`; all preview PNGs originate from generated PDFs |
+| Automatic template matching | Role/context keyword ranking, explicit overrides, reasons and conservative fallback |
+| Personal style persistence | Validated profile.json and STYLE.md in a user-chosen private directory |
+| Quality acceptance | `scripts/quality.py`; hashes, text, A4, bounds and explicit review attestations |
 | Common skill layout | Skill body under `skills/`, repository files at the root |
 | Three-language navigation | Generated README.md, README.zh-TW.md, README.en.md with centered HTML language links |
 | Generated README | `scripts/render_readme.py` over `templates/` and `data/project.json`, automatic table of contents |
