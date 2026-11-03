@@ -4,6 +4,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import html
+from html.parser import HTMLParser
 import json
 from pathlib import Path
 import sys
@@ -16,6 +17,25 @@ CATEGORIES = ("visual_review", "factual_review", "html_review")
 
 def compact(value):
     return "".join(value.split())
+
+
+class VisibleText(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.parts = []
+        self.hidden = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {"script", "style"}:
+            self.hidden += 1
+
+    def handle_endtag(self, tag):
+        if tag in {"script", "style"}:
+            self.hidden = max(0, self.hidden - 1)
+
+    def handle_data(self, data):
+        if not self.hidden:
+            self.parts.append(data)
 
 
 def inspect(delivery, data, demo=False):
@@ -59,7 +79,10 @@ def inspect(delivery, data, demo=False):
     checks["input_integrity"] = report.get("input_sha256") == hashlib.sha256(
         json.dumps(data, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
     html_body = (delivery / "resume.html").read_text(encoding="utf-8")
-    checks["html_selected_text"] = all(html.escape(value) in html_body for value in expected)
+    visible = VisibleText()
+    visible.feed(html_body)
+    visible_text = compact("".join(visible.parts))
+    checks["html_selected_text"] = all(compact(value) in visible_text for value in expected)
     reviews = {category: report.get(category, "pending") for category in CATEGORIES}
     attestations = report.get("attestations", {})
     reviewed = all(status == "passed" and attestations.get(category, {}).get("notes") and

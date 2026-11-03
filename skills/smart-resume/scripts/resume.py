@@ -6,6 +6,7 @@ import html
 import json
 import os
 from pathlib import Path
+import re
 from string import Template
 import sys
 import tempfile
@@ -127,7 +128,7 @@ def render_html(data, claims, photo, style=None):
             content.append(f'<p class="meta">{html.escape(contact)}</p>')
         for index, section in enumerate(sections, 1):
             content.append(f'<section><h2><span class="section-number">{index:02d} / </span>{html.escape(section["title"])}</h2><div class="section-body">')
-            content.extend(f'<p>{html.escape(claims[claim_id]["text"])}</p>' for claim_id in section["claim_ids"])
+            content.extend(f'<p>{emphasize(claims[claim_id]["text"], style)}</p>' for claim_id in section["claim_ids"])
             content.append("</div></section>")
         content.append(f"<footer>{number} / {len(data['pages'])}</footer>")
         blocks.append('<article class="page" contenteditable="true">' + "\n".join(content) + "</article>")
@@ -135,6 +136,20 @@ def render_html(data, claims, photo, style=None):
         language=data["language"], name=html.escape(name), intention=html.escape(data["intention"]),
         editing_note=html.escape(editing_note), pages="\n".join(blocks),
         style=style["id"], accent=style["accent"], spacing=style["spacing"])
+
+
+def emphasize(text, style=None):
+    """Highlight numbers that already exist in the candidate's own wording."""
+    style = style or style_library.resolve({"jd": {"title": ""}}, "classic")
+    if style.get("layout") != "growth":
+        return html.escape(text)
+    return numeric_markup(text, '<span class="metric">', "</span>")
+
+
+def numeric_markup(text, opening, closing):
+    parts = re.split(r"(\d+(?:[.,]\d+)*%?)", text)
+    return "".join(opening + html.escape(part) + closing if index % 2 else html.escape(part)
+                   for index, part in enumerate(parts))
 
 
 def register_font(font_path, all_text):
@@ -179,7 +194,7 @@ def render_pdf(data, claims, photo, path, font_path, style=None):
     all_text = " ".join(visible) + (demo_notice if data["demo"] else "") + "0123456789/: |"
     font_name = register_font(font_path, all_text)
     page_width, page_height = A4
-    margin = 20 * mm if layout == "editorial" else 18 * mm
+    margin = 20 * mm if layout == "growth" else 18 * mm
     body_width = page_width - margin * 2
     styles = {
         "body": ParagraphStyle("body", fontName=font_name, fontSize=10.5, leading=16, textColor=colors.HexColor("#182b3c"), wordWrap="CJK"),
@@ -189,8 +204,9 @@ def render_pdf(data, claims, photo, path, font_path, style=None):
     if layout == "plain":
         for paragraph_style in styles.values():
             paragraph_style.textColor = colors.black
-    if layout == "editorial":
+    if layout == "growth":
         styles["title"].alignment = 1
+        styles["body"].textColor = colors.HexColor("#2b2b2b")
     if style["spacing"] == "airy":
         styles["body"].leading = 18
     canvas = Canvas(str(path), pagesize=A4)
@@ -206,9 +222,12 @@ def render_pdf(data, claims, photo, path, font_path, style=None):
             canvas.setFillColor(accent)
             canvas.rect(0, page_height - 10 * mm, page_width, 10 * mm, fill=1, stroke=0)
 
-        def draw(value, style="body", gap=8, width=body_width, left=margin):
+        def draw(value, style="body", gap=8, width=body_width, left=margin, metric=False):
             nonlocal cursor
-            paragraph = Paragraph(html.escape(value), styles[style])
+            content = html.escape(value)
+            if metric and layout == "growth":
+                content = numeric_markup(value, f'<font color="#{accent.hexval()[2:]}">', "</font>")
+            paragraph = Paragraph(content, styles[style])
             _, height = paragraph.wrap(width, page_height)
             require(cursor - height >= margin + 15, f"Page {number} overflows; shorten or move content")
             paragraph.drawOn(canvas, left, cursor - height)
@@ -244,7 +263,7 @@ def render_pdf(data, claims, photo, path, font_path, style=None):
                 content_left = margin + 38 * mm
                 content_width = body_width - 38 * mm
             else:
-                if layout == "editorial":
+                if layout == "growth":
                     canvas.setStrokeColor(accent)
                     canvas.setLineWidth(.4)
                     canvas.line(margin, cursor + 4, page_width - margin, cursor + 4)
@@ -252,7 +271,7 @@ def render_pdf(data, claims, photo, path, font_path, style=None):
                 draw(heading, "heading")
                 content_left, content_width = margin, body_width
             for claim_id in section["claim_ids"]:
-                draw(claims[claim_id]["text"], width=content_width, left=content_left)
+                draw(claims[claim_id]["text"], width=content_width, left=content_left, metric=True)
             if layout == "ledger":
                 cursor = min(cursor, label_bottom)
                 canvas.setStrokeColor(accent)
@@ -266,9 +285,9 @@ def render_pdf(data, claims, photo, path, font_path, style=None):
     return measurements
 
 
-def render(data, input_dir, out, font_path=None, demo=False, style=None, profile=None, context="", ats=False):
+def render(data, input_dir, out, font_path=None, demo=False, style=None, profile=None, context="", ats=False, channel=None):
     claims, selected = validate(data, demo)
-    appearance = style_library.resolve(data, style, profile, context, ats)
+    appearance = style_library.resolve(data, style, profile, context, ats, channel)
     out = Path(out).resolve()
     require(not out.exists(), "Output directory exists; choose a new directory to preserve previous files")
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -307,6 +326,7 @@ def main():
     matching.add_argument("input", type=Path)
     matching.add_argument("--context", default="")
     matching.add_argument("--ats", action="store_true")
+    matching.add_argument("--channel", choices=style_library.CHANNELS)
     listing = subcommands.add_parser("styles")
     listing.add_argument("--profiles-dir", type=Path)
     saving = subcommands.add_parser("save-style")
@@ -326,6 +346,7 @@ def main():
             subparser.add_argument("--profile", type=Path)
             subparser.add_argument("--context", default="")
             subparser.add_argument("--ats", action="store_true")
+            subparser.add_argument("--channel", choices=style_library.CHANNELS)
     arguments = parser.parse_args()
     try:
         if arguments.command == "init":
@@ -339,13 +360,13 @@ def main():
             print(style_library.save_profile(arguments.name, arguments.base, arguments.accent,
                                              arguments.spacing, arguments.profiles_dir))
         elif arguments.command == "match":
-            print(json.dumps(style_library.match(load(arguments.input), arguments.context, arguments.ats), ensure_ascii=False, indent=2))
+            print(json.dumps(style_library.match(load(arguments.input), arguments.context, arguments.ats, arguments.channel), ensure_ascii=False, indent=2))
         elif arguments.command == "validate":
             _, selected = validate(load(arguments.input), arguments.demo)
             print(f"Structure and evidence eligibility passed: {len(selected)} selected claims. Factual review still required.")
         else:
             report = render(load(arguments.input), arguments.input.resolve().parent, arguments.out, arguments.font,
-                            arguments.demo, arguments.style, arguments.profile, arguments.context, arguments.ats)
+                            arguments.demo, arguments.style, arguments.profile, arguments.context, arguments.ats, arguments.channel)
             print(f"Generated {report['page_count']} A4 pages, editable HTML and private review record. Visual review pending.")
     except (ValueError, OSError, TypeError, KeyError, ImportError) as error:
         print(f"Error: {error}", file=sys.stderr)

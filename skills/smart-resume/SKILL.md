@@ -63,8 +63,18 @@ the gallery, saving personal preferences or recording quality acceptance.
 List personal styles first when the candidate asks to choose. Honor an explicit
 style/profile; otherwise use transparent role-keyword matching and explain the
 recommendation. Read the selected `styles/<id>/STYLE.md` before rendering.
-Six layouts generate actual PDFs: classic, ats, technical, executive, editorial,
+Six layouts generate actual PDFs: classic, ats, technical, executive, growth,
 creative. Visual design cannot supply missing career evidence.
+
+Read [references/template-library.md](references/template-library.md) for
+reuse-before-search, classification by role/channel/seniority, the internal
+100-point rubric and feedback lifecycle. Show applicable roles, channels and ATS
+cautions with each recommendation. Retrieve personal promoted templates first;
+exclude deprecated records. Save approved preferences and reusable classification
+privately, then record quality evidence separately from actual delivery outcomes.
+Downgrade failed templates and repair or retire them. Never call a template
+"high pass rate" without real delivery evidence or imply it caused the outcome.
+Public library contributions require a de-identified, licensed, reviewed PR.
 
 Default: two A4 pages, readable 10.5 pt body, selectable text, restrained colors.
 Do not pad thin content to create a fake second page. Ask whether a one-page

@@ -31,7 +31,7 @@ def build(out, input_path=None, font=None, pdftoppm="pdftoppm", compact=False):
         staging.mkdir()
         (staging / "demo-input.json").write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
         cards, manifest = [], []
-        for item in styles.CATALOG:
+        for item in styles.CATALOG["styles"]:
             slug = item["id"]
             target = staging / slug
             report = resume.render(data, input_path.resolve().parent, target, font, True, style=slug)
@@ -41,11 +41,14 @@ def build(out, input_path=None, font=None, pdftoppm="pdftoppm", compact=False):
             if len(images) != report["page_count"]:
                 raise ValueError(f"Missing PDF preview pages for {slug}")
             name = item["names"][data["language"]]
+            detail = styles.describe(slug, data["language"])
+            guidance = html.escape(" · ".join(detail["roles"]) + " | " + " · ".join(detail["channels"])
+                                   + " | ATS: " + detail["ats"] + " — " + detail["ats_note"])
             thumbnails = "".join(
                 f'<a href="{slug}/{image.name}"><img loading="lazy" src="{slug}/{image.name}" alt="{html.escape(name)} · {index}"></a>'
                 for index, image in enumerate(images, 1))
             cards.append(
-                f'<article data-style="{slug}"><header><span>{slug.upper()}</span><h2>{html.escape(name)}</h2></header>'
+                f'<article data-style="{slug}"><header><span>{slug.upper()}</span><h2>{html.escape(name)}</h2><p>{guidance}</p></header>'
                 f'<div class="pages{" single" if len(images) == 1 else ""}">{thumbnails}</div><nav aria-label="{slug} downloads">'
                 f'<a href="{slug}/resume.pdf">PDF ↗</a><a href="{slug}/resume.html">HTML ↗</a>'
                 f'<a href="{slug}/review.json">Review JSON ↗</a></nav></article>')
@@ -73,7 +76,7 @@ nav{display:flex;flex-wrap:wrap;gap:18px;border-top:1px solid #e4e8e4;padding:16
 document.getElementById('style').addEventListener('change',function(){
 document.querySelectorAll('article[data-style]').forEach(card=>card.hidden=this.value!=='all'&&card.dataset.style!==this.value);
 });</script></html>"""
-        options = "".join(f'<option value="{item["id"]}">{html.escape(item["names"][data["language"]])}</option>' for item in styles.CATALOG)
+        options = "".join(f'<option value="{item["id"]}">{html.escape(item["names"][data["language"]])}</option>' for item in styles.CATALOG["styles"])
         for token, value in (("LANG", data["language"]), ("TITLE", html.escape(title)), ("NOTICE", html.escape(notice)),
                              ("OPTIONS", options), ("CARDS", "".join(cards))):
             body = body.replace(token, value)

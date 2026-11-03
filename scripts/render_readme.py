@@ -94,12 +94,28 @@ def render(language, data):
         "{{DEMO}}": data["demo"],
         "{{SKILL_TREE}}": build_skill_tree(),
         "{{TOC}}": build_toc(data, language),
+        "{{STYLE_DIRECTORY}}": build_style_directory(language),
     }
     for token, value in replacements.items():
         body = body.replace(token, value)
     if "{{" in body or "}}" in body:
         raise ValueError(f"Unresolved placeholder in {template_name}")
     return output_name, body
+
+
+def build_style_directory(language):
+    catalog = json.loads((ROOT / "skills/smart-resume/styles/catalog.json").read_text(encoding="utf-8"))
+    headings = {
+        "zh-CN": "| 风格 / PDF | 岗位类型 | 投递渠道 | ATS 提示 |",
+        "zh-TW": "| 風格 / PDF | 職缺類型 | 投遞管道 | ATS 提示 |",
+        "en": "| Style / PDF | Role family | Channel | ATS guidance |",
+    }
+    lines = [headings[language], "| --- | --- | --- | --- |"]
+    for style in catalog["styles"]:
+        roles = " / ".join(catalog["role_families"][key][language] for key in style["role_families"])
+        channels = " / ".join(catalog["channels"][key][language] for key in style["channels"])
+        lines.append(f'| [{style["names"][language]}](docs/previews/{style["id"]}.pdf) (`{style["id"]}`) | {roles} | {channels} | {style["ats_note"][language]} |')
+    return "\n".join(lines)
 
 
 def render_all(data=None):

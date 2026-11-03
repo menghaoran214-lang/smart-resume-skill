@@ -113,14 +113,36 @@ and it cannot be mistaken for a real resume.
 
 ### Six styles that actually generate PDFs
 
-| ID | Style | Selection cues |
-| --- | --- | --- |
-| `classic` | [Classic Business PDF](docs/previews/classic.pdf) | Finance, administration, legal |
-| `ats` | [ATS Minimal PDF](docs/previews/ats.pdf) | Plain black single column; no universal ATS guarantee |
-| `technical` | [Technical Ledger PDF](docs/previews/technical.pdf) | Engineering, software, data; left section labels |
-| `executive` | [Executive Brief PDF](docs/previews/executive.pdf) | Management; dark top band |
-| `editorial` | [Editorial Journal PDF](docs/previews/editorial.pdf) | Content, editing, communications; centered name and fine rules |
-| `creative` | [Creative Portfolio PDF](docs/previews/creative.pdf) | Design, brand, visual roles; side rail and numbered sections |
+{{STYLE_DIRECTORY}}
+
+### Discussion-driven template intelligence
+
+Growth Metrics replaces the unintended Editorial style. Reuse approved templates
+before research, classified by role family, delivery channel and seniority.
+Private template metadata supports review, promotion, retirement and application
+feedback in `~/.smart-resume/library`; personal style tokens stay separate.
+
+Structure, technical quality and actual delivery outcomes are independent.
+Our internal rubric assigns JD fit 35, supported achievements 25, factual sources
+15, hierarchy 10, technical quality 10 and visual design 5 points. It is not an
+employer algorithm or an interview prediction. Without real applications, never
+claim a high pass rate or that a template caused an outcome.
+
+Research channels: university career centers, recruiting research, actual JDs,
+and ATS diagnostics plus actual application feedback. Adapt fonts, optional
+photos, contact details and one/two-page length to the target Chinese employer.
+Public updates require licensed, de-identified PRs with real synthetic previews;
+never copy paid templates or other candidates' resumes.
+
+```text
+python scripts/library.py list --role-family ops-growth --channel cn-platform
+python scripts/library.py save my-growth --style growth --role-family ops-growth --channel cn-platform --seniority mid
+python scripts/library.py report my-growth
+```
+
+See [template library and quality rubric](skills/smart-resume/references/template-library.md)
+for evidence, promotion, retirement and delivery feedback commands. Saving metadata
+does not train a model or upload personal materials.
 
 Each has `styles/<id>/STYLE.md` with stable visual rules. Every layout preserves
 the same approved content and 10.5 pt body. Gallery thumbnails are rendered from

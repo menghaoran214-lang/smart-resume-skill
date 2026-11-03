@@ -1,8 +1,12 @@
-# Executive Brief · 管理领航 · 管理領航
+# Business Executive · 商务精英型 · 商務菁英型
+
+Roles: business development, product operations and project management.
+Channels: Chinese platforms, agency referrals and company ATS. Single-column
+text is intended for parsing; verify the actual destination. Photo optional.
 
 ## Identity
 A deep navy top band anchors a quiet full-width executive brief.
-Suitable for management roles when supported leadership evidence exists.
+Suitable for business and project roles; include leadership only when supported.
 Style selection never upgrades a historical title or invents leadership.
 
 ## Invariants

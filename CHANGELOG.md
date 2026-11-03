@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 — 2026-11-03
+
+- Restore the six agreed styles, replacing Editorial with Growth Metrics.
+- Add role/channel classification and channel-aware keyword recommendations.
+- Add private template lifecycle and application feedback with separate evidence.
+- Document reuse-before-research, the internal rubric and licensed PR contributions.
+- Generate three-language style directories from the shared catalog.
+
 ## 0.2.0 - 2026-11-03
 
 - Six PDF/HTML layouts with individual STYLE.md invariants and a shared catalog.

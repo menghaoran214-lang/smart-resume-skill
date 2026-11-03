@@ -1,7 +1,12 @@
-# Creative Portfolio · 创意作品 · 創意作品
+# Creative Portfolio · 创意作品型 · 創意作品型
+
+Roles: short-video direction, new media and brand content.
+Channels: portfolio/interview material, Chinese platforms and agency referrals.
+ATS caution: verify extraction and keep a plain alternative. Photo optional;
+never substitute an invented work sample for an actual portfolio.
 
 ## Identity
-A slim violet rail and numbered sections support a recognizable portfolio brief.
+A slim accent rail and numbered sections support a recognizable portfolio brief.
 Suitable for design, brand and visual roles. Portfolio links must be supported
 candidate facts; this layout does not create a portfolio or invent projects.
 

@@ -1,8 +1,90 @@
-[
-  {"id":"classic","names":{"zh-CN":"经典商务","zh-TW":"經典商務","en":"Classic Business"},"accent":"#244d68","layout":"rule","keywords":["finance","account","legal","administration","财务","財務","行政","法务","法務","审计","審計"]},
-  {"id":"ats","names":{"zh-CN":"ATS 极简","zh-TW":"ATS 極簡","en":"ATS Minimal"},"accent":"#222222","layout":"plain","keywords":["ats","plain","tracking","解析","纯文本","純文字"]},
-  {"id":"technical","names":{"zh-CN":"技术工程","zh-TW":"技術工程","en":"Technical Ledger"},"accent":"#155e52","layout":"ledger","keywords":["engineer","developer","software","data","工程","开发","開發","技术","技術","数据","資料"]},
-  {"id":"executive","names":{"zh-CN":"管理领航","zh-TW":"管理領航","en":"Executive Brief"},"accent":"#233b59","layout":"band","keywords":["director","head","executive","lead","manager","总监","總監","负责人","負責人","经理","經理","管理"]},
-  {"id":"editorial","names":{"zh-CN":"内容编辑","zh-TW":"內容編輯","en":"Editorial Journal"},"accent":"#853b36","layout":"editorial","keywords":["content","writer","editor","communication","内容","內容","编辑","編輯","文案","传播","傳播"]},
-  {"id":"creative","names":{"zh-CN":"创意作品","zh-TW":"創意作品","en":"Creative Portfolio"},"accent":"#61467f","layout":"rail","keywords":["designer","creative","brand","visual","ux","ui","设计","設計","创意","創意","品牌","视觉","視覺"]}
-]
+{
+  "schema_version": 2,
+  "role_families": {
+    "product-tech": {"zh-CN": "产品与技术", "zh-TW": "產品與技術", "en": "Product and technology"},
+    "ops-growth": {"zh-CN": "运营与增长", "zh-TW": "營運與成長", "en": "Operations and growth"},
+    "business-marketing": {"zh-CN": "商务与市场", "zh-TW": "商務與市場", "en": "Business and marketing"},
+    "content-creative": {"zh-CN": "内容与创意", "zh-TW": "內容與創意", "en": "Content and creative"},
+    "general": {"zh-CN": "综合职能", "zh-TW": "綜合職能", "en": "General professional"}
+  },
+  "channels": {
+    "ats-direct": {"zh-CN": "官网直投 / ATS", "zh-TW": "官網直投 / ATS", "en": "Company site / ATS"},
+    "cn-platform": {"zh-CN": "国内招聘平台", "zh-TW": "國內招聘平台", "en": "Chinese job platforms"},
+    "agency": {"zh-CN": "猎头推荐", "zh-TW": "獵頭推薦", "en": "Agency referral"},
+    "portfolio": {"zh-CN": "作品集 / 面试材料", "zh-TW": "作品集 / 面試材料", "en": "Portfolio / interview material"}
+  },
+  "styles": [
+    {
+      "id": "ats",
+      "names": {"zh-CN": "极简专业型", "zh-TW": "極簡專業型", "en": "Minimal Professional"},
+      "accent": "#1f2933",
+      "layout": "plain",
+      "keywords": ["ats", "product", "product manager", "analyst", "ai", "data", "产品", "產品", "运营", "運營", "数据", "資料", "算法", "分析"],
+      "role_families": ["product-tech", "ops-growth", "general"],
+      "channels": ["ats-direct", "cn-platform"],
+      "ats": "friendly",
+      "ats_note": {"zh-CN": "单栏纯黑、无图形标记，文本抽取最稳，适合需要解析的投递渠道。", "zh-TW": "單欄純黑、無圖形標記，文字擷取最穩，適合需要解析的投遞管道。", "en": "Single black column with no graphics; the most stable choice for parsing channels."},
+      "summary": {"zh-CN": "最保守的版式，优先保证机器可读。", "zh-TW": "最保守的版式，優先保證機器可讀。", "en": "The most conservative layout, built for machine readability."}
+    },
+    {
+      "id": "executive",
+      "names": {"zh-CN": "商务精英型", "zh-TW": "商務菁英型", "en": "Business Executive"},
+      "accent": "#233b59",
+      "layout": "band",
+      "keywords": ["business", "sales", "bd", "business development", "project manager", "商务", "商務", "拓展", "运营", "運營", "项目管理", "專案管理"],
+      "role_families": ["business-marketing", "ops-growth", "general"],
+      "channels": ["cn-platform", "agency", "ats-direct"],
+      "ats": "friendly",
+      "ats_note": {"zh-CN": "顶部色带不含文字，内容单栏，解析不受影响。", "zh-TW": "頂部色帶不含文字，內容單欄，解析不受影響。", "en": "The top band carries no text and the body stays single-column, so parsing is unaffected."},
+      "summary": {"zh-CN": "深色顶栏建立分量感，适合商务与项目型岗位。", "zh-TW": "深色頂欄建立分量感，適合商務與專案型職缺。", "en": "A dark band adds gravitas for business and project roles."}
+    },
+    {
+      "id": "growth",
+      "names": {"zh-CN": "数据增长型", "zh-TW": "數據成長型", "en": "Growth Metrics"},
+      "accent": "#5b3fa0",
+      "layout": "growth",
+      "keywords": ["growth", "operations", "ecommerce", "commercialization", "marketing", "运营", "運營", "增长", "成長", "电商", "電商", "商业化", "商業化", "市场", "市場"],
+      "role_families": ["ops-growth", "business-marketing"],
+      "channels": ["cn-platform", "agency"],
+      "ats": "caution",
+      "ats_note": {"zh-CN": "已有数字会高亮成紫色，纯文本解析仍然完整；请确认目标渠道不依赖纯文本。", "zh-TW": "已有數字會高亮成紫色，純文字解析仍然完整；請確認目標管道不依賴純文字。", "en": "Existing numbers are highlighted in violet and the text layer stays complete; confirm the target channel does not require plain text."},
+      "summary": {"zh-CN": "只高亮已有成果数字，不生成任何未经证实的指标。", "zh-TW": "只高亮已有成果數字，不生成任何未經證實的指標。", "en": "Highlights only the numbers already supported by the candidate's evidence."}
+    },
+    {
+      "id": "creative",
+      "names": {"zh-CN": "创意作品型", "zh-TW": "創意作品型", "en": "Creative Portfolio"},
+      "accent": "#a8492b",
+      "layout": "rail",
+      "keywords": ["designer", "creative", "brand", "visual", "ux", "ui", "video", "editor", "new media", "设计", "設計", "创意", "創意", "品牌", "视觉", "視覺", "短视频", "短影音", "新媒体", "新媒體"],
+      "role_families": ["content-creative", "business-marketing"],
+      "channels": ["portfolio", "cn-platform", "agency"],
+      "ats": "caution",
+      "ats_note": {"zh-CN": "侧边色轨与编号为装饰，解析出的文字顺序仍然正确，但建议同时准备一份 ATS 版。", "zh-TW": "側邊色軌與編號為裝飾，擷取出的文字順序仍然正確，但建議同時準備一份 ATS 版。", "en": "The rail and numbering are decorative and the extracted order stays correct, but keep an ATS version as well."},
+      "summary": {"zh-CN": "编号版式配合作品集投递，不替代作品本身。", "zh-TW": "編號版式配合作品集投遞，不取代作品本身。", "en": "A numbered layout for portfolio submissions; it does not replace the work itself."}
+    },
+    {
+      "id": "technical",
+      "names": {"zh-CN": "科技项目型", "zh-TW": "科技專案型", "en": "Technology Projects"},
+      "accent": "#155e52",
+      "layout": "ledger",
+      "keywords": ["engineer", "developer", "software", "agent", "ai", "data", "技术", "技術", "开发", "開發", "工程师", "工程師", "算法", "数据", "資料"],
+      "role_families": ["product-tech"],
+      "channels": ["ats-direct", "cn-platform"],
+      "ats": "friendly",
+      "ats_note": {"zh-CN": "左侧标签栏只是视觉分栏，文字顺序为标题在前、正文在后。", "zh-TW": "左側標籤欄只是視覺分欄，文字順序為標題在前、正文在後。", "en": "The label column is visual only; extracted order stays heading-first, body-second."},
+      "summary": {"zh-CN": "左侧栏目标签把项目与技术经历读成一份台账。", "zh-TW": "左側欄目標籤把專案與技術經歷讀成一份帳本。", "en": "Left-hand labels read project and engineering history like a ledger."}
+    },
+    {
+      "id": "classic",
+      "names": {"zh-CN": "经典正式型", "zh-TW": "經典正式型", "en": "Classic Formal"},
+      "accent": "#244d68",
+      "layout": "rule",
+      "keywords": ["finance", "account", "legal", "administration", "bank", "state-owned", "财务", "財務", "会计", "會計", "行政", "法务", "法務", "审计", "審計", "银行", "銀行", "国企", "國企"],
+      "role_families": ["general", "business-marketing"],
+      "channels": ["cn-platform", "ats-direct", "agency"],
+      "ats": "friendly",
+      "ats_note": {"zh-CN": "传统单栏加细分隔线，解析稳定。", "zh-TW": "傳統單欄加細分隔線，解析穩定。", "en": "A traditional single column with fine rules; parsing stays stable."},
+      "summary": {"zh-CN": "最通用的一版，适合金融、传统企业与综合职能。", "zh-TW": "最通用的一版，適合金融、傳統企業與綜合職能。", "en": "The most general option for finance, traditional firms and mixed functions."}
+    }
+  ]
+}

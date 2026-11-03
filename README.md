@@ -116,14 +116,41 @@ python3 scripts/resume.py render examples/demo.json --demo --out output/demo
 
 ### 六种可生成 PDF 的风格
 
-| 风格 ID | 风格 | 适用线索 |
-| --- | --- | --- |
-| `classic` | [经典商务 PDF](docs/previews/classic.pdf) | 财务、行政、法务 |
-| `ats` | [ATS 极简 PDF](docs/previews/ats.pdf) | 单栏黑字，优先文本解析；不保证兼容所有 ATS |
-| `technical` | [技术工程 PDF](docs/previews/technical.pdf) | 工程、开发、数据；左侧栏目标签 |
-| `executive` | [管理领航 PDF](docs/previews/executive.pdf) | 管理岗位；深色顶栏 |
-| `editorial` | [内容编辑 PDF](docs/previews/editorial.pdf) | 内容、编辑、传播；居中姓名与细线 |
-| `creative` | [创意作品 PDF](docs/previews/creative.pdf) | 设计、品牌、视觉；侧边色轨与编号 |
+| 风格 / PDF | 岗位类型 | 投递渠道 | ATS 提示 |
+| --- | --- | --- | --- |
+| [极简专业型](docs/previews/ats.pdf) (`ats`) | 产品与技术 / 运营与增长 / 综合职能 | 官网直投 / ATS / 国内招聘平台 | 单栏纯黑、无图形标记，文本抽取最稳，适合需要解析的投递渠道。 |
+| [商务精英型](docs/previews/executive.pdf) (`executive`) | 商务与市场 / 运营与增长 / 综合职能 | 国内招聘平台 / 猎头推荐 / 官网直投 / ATS | 顶部色带不含文字，内容单栏，解析不受影响。 |
+| [数据增长型](docs/previews/growth.pdf) (`growth`) | 运营与增长 / 商务与市场 | 国内招聘平台 / 猎头推荐 | 已有数字会高亮成紫色，纯文本解析仍然完整；请确认目标渠道不依赖纯文本。 |
+| [创意作品型](docs/previews/creative.pdf) (`creative`) | 内容与创意 / 商务与市场 | 作品集 / 面试材料 / 国内招聘平台 / 猎头推荐 | 侧边色轨与编号为装饰，解析出的文字顺序仍然正确，但建议同时准备一份 ATS 版。 |
+| [科技项目型](docs/previews/technical.pdf) (`technical`) | 产品与技术 | 官网直投 / ATS / 国内招聘平台 | 左侧标签栏只是视觉分栏，文字顺序为标题在前、正文在后。 |
+| [经典正式型](docs/previews/classic.pdf) (`classic`) | 综合职能 / 商务与市场 | 国内招聘平台 / 官网直投 / ATS / 猎头推荐 | 传统单栏加细分隔线，解析稳定。 |
+
+### 补齐「⭐定制简历制作」讨论的更新
+
+按原讨论恢复六种风格，新增数据增长型，取代此前误加的内容编辑型。
+模板按“岗位类型 × 投递渠道 × 资历”归类，先复用已认可模板，再按缺口搜索。
+国内求职按目标岗位要求处理中文字体、照片、联系方式和一至两页篇幅。
+
+结构质量、技术质量、投递效果分别记录；内部百分制中岗位匹配 35 分、
+成果证明 25 分、事实来源 15 分、内容层次 10 分、技术质量 10 分、视觉 5 分。
+这是自定审阅标准，不是招聘方算法，也不预测面试概率。
+
+个人模板支持保存、审核启用、停用修复及投递反馈记录，资料保存在本机个人目录。
+公共模板通过脱敏、许可与质量检查后的 PR 更新；不自动上传个人简历。
+研究来源分为大学职业中心、招聘研究、真实 JD、ATS 检查与真实投递反馈四类，
+不会直接复制收费模板或他人简历。
+
+从技能目录运行：
+
+```text
+python scripts/library.py list --role-family ops-growth --channel cn-platform
+python scripts/library.py save my-growth --style growth --role-family ops-growth --channel cn-platform --seniority mid
+python scripts/library.py report my-growth
+```
+
+保存的是可复用模板分类和风格，不是自动训练模型。完整的启用、淘汰、反馈命令见
+[模板库与质量标准](skills/smart-resume/references/template-library.md)。
+没有真实投递数据时只能说“通过质量检查”，不能说“高通过率”。
 
 每种风格都有独立 `styles/<id>/STYLE.md`；共享同一份已核实内容，正文保持 10.5 pt。真实图库由 PDF 转成 PNG，包含每种风格的全部页面，可直接打开 PDF 或 HTML。
 
@@ -180,10 +207,12 @@ smart-resume/
 │   └── demo.zh-TW.json
 ├── references/
 │   ├── styles.md
+│   ├── template-library.md
 │   └── workflow.md
 ├── scripts/
 │   ├── gallery.py
 │   ├── install.py
+│   ├── library.py
 │   ├── package.py
 │   ├── quality.py
 │   ├── resume.py
@@ -195,14 +224,15 @@ smart-resume/
 │   │   └── STYLE.md
 │   ├── creative/
 │   │   └── STYLE.md
-│   ├── editorial/
-│   │   └── STYLE.md
 │   ├── executive/
+│   │   └── STYLE.md
+│   ├── growth/
 │   │   └── STYLE.md
 │   ├── technical/
 │   │   └── STYLE.md
 │   └── catalog.json
 ├── tests/
+│   ├── test_library.py
 │   ├── test_resume.py
 │   └── test_styles.py
 ├── LICENSE

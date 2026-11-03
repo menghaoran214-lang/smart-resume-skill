@@ -23,6 +23,13 @@ limitations. Do not claim remote CI or native installation based on local checks
 
 ## License choice
 
+For template contributions, classify role family, channel and seniority. Supply
+STYLE.md, licensed synthetic inputs, actual PDF previews and review evidence in
+a focused PR. Keep private candidate data and application logs out of Git.
+Separate structure checks, technical acceptance and actual delivery outcomes;
+never claim high pass rates from demo quality. Review failing or outdated
+templates for repair, downgrade or retirement rather than only growing the list.
+
 The project uses the MIT License, kept in `LICENSE` and
 `skills/smart-resume/LICENSE`. Common alternatives are MIT, Apache-2.0, GPL
 and 0BSD: MIT is the most permissive and rarely blocks reuse, Apache-2.0 adds

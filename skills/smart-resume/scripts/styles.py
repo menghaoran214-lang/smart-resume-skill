@@ -1,4 +1,4 @@
-"""Shared style tokens, transparent matching and private style profiles."""
+"""Style catalog, transparent matching and private style profiles."""
 
 import json
 from pathlib import Path
@@ -9,7 +9,9 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE_ROOT = Path.home() / ".smart-resume" / "styles"
 CATALOG = json.loads((ROOT / "styles/catalog.json").read_text(encoding="utf-8"))
-STYLES = {item["id"]: item for item in CATALOG}
+STYLES = {item["id"]: item for item in CATALOG["styles"]}
+ROLE_FAMILIES = CATALOG["role_families"]
+CHANNELS = CATALOG["channels"]
 
 
 def check_profile(profile):
@@ -73,24 +75,35 @@ def list_profiles(directory=None):
     return profiles
 
 
-def match(data, context="", ats=False):
+def match(data, context="", ats=False, channel=None):
+    """Rank styles by role keyword hits, then by channel suitability."""
     if ats:
-        return [{"id": "ats", "score": 100, "reasons": ["Explicit ATS preference; parsing compatibility is not guaranteed."]}]
+        return [{"id": "ats", "score": 100,
+                 "reasons": ["Explicit ATS request; parsing compatibility is still not guaranteed."]}]
     title = str(data.get("jd", {}).get("title", ""))
     query = (title + " " + context).casefold()
     ranked = []
-    for item in CATALOG:
+    for item in CATALOG["styles"]:
         hits = [keyword for keyword in item["keywords"] if
                 (re.search(r"(?<![a-z0-9])" + re.escape(keyword) + r"(?![a-z0-9])", query)
                  if keyword.isascii() else keyword in query)]
-        score = len(hits) * 10 + (1 if item["id"] == "classic" else 0)
-        ranked.append({"id": item["id"], "score": score, "reasons": hits or ["Conservative fallback" if item["id"] == "classic" else "No role keyword match"]})
-    return sorted(ranked, key=lambda item: (-item["score"], list(STYLES).index(item["id"])))
+        reasons = list(hits)
+        score = sum(5 if keyword in {"analyst", "data", "ai", "运营", "運營"} else 10 for keyword in hits)
+        if channel and channel in item["channels"]:
+            score += 4
+            reasons.append(f"Supports the {channel} channel")
+        if item["id"] == "classic" and not hits:
+            score += 1
+            reasons.append("Conservative fallback")
+        ranked.append({"id": item["id"], "score": score,
+                       "reasons": reasons or ["No role keyword match"]})
+    order = [item["id"] for item in CATALOG["styles"]]
+    return sorted(ranked, key=lambda entry: (-entry["score"], order.index(entry["id"])))
 
 
-def resolve(data, style=None, profile=None, context="", ats=False):
+def resolve(data, style=None, profile=None, context="", ats=False, channel=None):
     preferences = read_profile(profile) if profile else None
-    recommendations = match(data, context, ats)
+    recommendations = match(data, context, ats, channel)
     selected = style or (preferences["base"] if preferences else recommendations[0]["id"])
     if selected not in STYLES:
         raise ValueError(f"Unknown style: {selected}")
@@ -105,3 +118,17 @@ def resolve(data, style=None, profile=None, context="", ats=False):
     result["profile"] = preferences["name"] if preferences else None
     result["recommendations"] = recommendations[:3]
     return result
+
+
+def describe(style_id, language="zh-CN"):
+    """Return the catalog facts a user needs before choosing a layout."""
+    style = STYLES[style_id]
+    return {
+        "id": style_id,
+        "name": style["names"][language],
+        "summary": style["summary"][language],
+        "roles": [ROLE_FAMILIES[family][language] for family in style["role_families"]],
+        "channels": [CHANNELS[channel][language] for channel in style["channels"]],
+        "ats": style["ats"],
+        "ats_note": style["ats_note"][language],
+    }

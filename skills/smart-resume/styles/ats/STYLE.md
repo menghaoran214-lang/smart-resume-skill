@@ -1,4 +1,8 @@
-# ATS Minimal · ATS 极简 · ATS 極簡
+# Minimal Professional · 极简专业型 · 極簡專業型
+
+Roles: product management, AI, data analysis and technical work.
+Channels: company ATS and Chinese platforms. Favor plain extraction, but do
+not claim compatibility from appearance alone.
 
 ## Identity
 A plain black single-column document with conventional section names and no

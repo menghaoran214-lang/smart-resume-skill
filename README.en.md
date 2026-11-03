@@ -130,14 +130,43 @@ and it cannot be mistaken for a real resume.
 
 ### Six styles that actually generate PDFs
 
-| ID | Style | Selection cues |
-| --- | --- | --- |
-| `classic` | [Classic Business PDF](docs/previews/classic.pdf) | Finance, administration, legal |
-| `ats` | [ATS Minimal PDF](docs/previews/ats.pdf) | Plain black single column; no universal ATS guarantee |
-| `technical` | [Technical Ledger PDF](docs/previews/technical.pdf) | Engineering, software, data; left section labels |
-| `executive` | [Executive Brief PDF](docs/previews/executive.pdf) | Management; dark top band |
-| `editorial` | [Editorial Journal PDF](docs/previews/editorial.pdf) | Content, editing, communications; centered name and fine rules |
-| `creative` | [Creative Portfolio PDF](docs/previews/creative.pdf) | Design, brand, visual roles; side rail and numbered sections |
+| Style / PDF | Role family | Channel | ATS guidance |
+| --- | --- | --- | --- |
+| [Minimal Professional](docs/previews/ats.pdf) (`ats`) | Product and technology / Operations and growth / General professional | Company site / ATS / Chinese job platforms | Single black column with no graphics; the most stable choice for parsing channels. |
+| [Business Executive](docs/previews/executive.pdf) (`executive`) | Business and marketing / Operations and growth / General professional | Chinese job platforms / Agency referral / Company site / ATS | The top band carries no text and the body stays single-column, so parsing is unaffected. |
+| [Growth Metrics](docs/previews/growth.pdf) (`growth`) | Operations and growth / Business and marketing | Chinese job platforms / Agency referral | Existing numbers are highlighted in violet and the text layer stays complete; confirm the target channel does not require plain text. |
+| [Creative Portfolio](docs/previews/creative.pdf) (`creative`) | Content and creative / Business and marketing | Portfolio / interview material / Chinese job platforms / Agency referral | The rail and numbering are decorative and the extracted order stays correct, but keep an ATS version as well. |
+| [Technology Projects](docs/previews/technical.pdf) (`technical`) | Product and technology | Company site / ATS / Chinese job platforms | The label column is visual only; extracted order stays heading-first, body-second. |
+| [Classic Formal](docs/previews/classic.pdf) (`classic`) | General professional / Business and marketing | Chinese job platforms / Company site / ATS / Agency referral | A traditional single column with fine rules; parsing stays stable. |
+
+### Discussion-driven template intelligence
+
+Growth Metrics replaces the unintended Editorial style. Reuse approved templates
+before research, classified by role family, delivery channel and seniority.
+Private template metadata supports review, promotion, retirement and application
+feedback in `~/.smart-resume/library`; personal style tokens stay separate.
+
+Structure, technical quality and actual delivery outcomes are independent.
+Our internal rubric assigns JD fit 35, supported achievements 25, factual sources
+15, hierarchy 10, technical quality 10 and visual design 5 points. It is not an
+employer algorithm or an interview prediction. Without real applications, never
+claim a high pass rate or that a template caused an outcome.
+
+Research channels: university career centers, recruiting research, actual JDs,
+and ATS diagnostics plus actual application feedback. Adapt fonts, optional
+photos, contact details and one/two-page length to the target Chinese employer.
+Public updates require licensed, de-identified PRs with real synthetic previews;
+never copy paid templates or other candidates' resumes.
+
+```text
+python scripts/library.py list --role-family ops-growth --channel cn-platform
+python scripts/library.py save my-growth --style growth --role-family ops-growth --channel cn-platform --seniority mid
+python scripts/library.py report my-growth
+```
+
+See [template library and quality rubric](skills/smart-resume/references/template-library.md)
+for evidence, promotion, retirement and delivery feedback commands. Saving metadata
+does not train a model or upload personal materials.
 
 Each has `styles/<id>/STYLE.md` with stable visual rules. Every layout preserves
 the same approved content and 10.5 pt body. Gallery thumbnails are rendered from
@@ -216,10 +245,12 @@ smart-resume/
 │   └── demo.zh-TW.json
 ├── references/
 │   ├── styles.md
+│   ├── template-library.md
 │   └── workflow.md
 ├── scripts/
 │   ├── gallery.py
 │   ├── install.py
+│   ├── library.py
 │   ├── package.py
 │   ├── quality.py
 │   ├── resume.py
@@ -231,14 +262,15 @@ smart-resume/
 │   │   └── STYLE.md
 │   ├── creative/
 │   │   └── STYLE.md
-│   ├── editorial/
-│   │   └── STYLE.md
 │   ├── executive/
+│   │   └── STYLE.md
+│   ├── growth/
 │   │   └── STYLE.md
 │   ├── technical/
 │   │   └── STYLE.md
 │   └── catalog.json
 ├── tests/
+│   ├── test_library.py
 │   ├── test_resume.py
 │   └── test_styles.py
 ├── LICENSE

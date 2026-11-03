@@ -1,4 +1,8 @@
-# Technical Ledger · 技术工程 · 技術工程
+# Technology Projects · 科技项目型 · 科技專案型
+
+Roles: AI development, agents, software engineering and technical product.
+Channels: company ATS and Chinese platforms. Verify heading/body extraction
+order on the actual destination. Photo optional; project links must be supported.
 
 ## Identity
 Section labels occupy a narrow left column, with supporting evidence to the right.

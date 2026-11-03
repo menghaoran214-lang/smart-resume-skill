@@ -15,7 +15,8 @@ FILES = (
     "scripts/styles.py", "scripts/gallery.py", "scripts/quality.py",
     "references/styles.md", "styles/catalog.json",
     "styles/classic/STYLE.md", "styles/ats/STYLE.md", "styles/technical/STYLE.md",
-    "styles/executive/STYLE.md", "styles/editorial/STYLE.md", "styles/creative/STYLE.md",
+    "styles/executive/STYLE.md", "styles/growth/STYLE.md", "styles/creative/STYLE.md",
+    "scripts/library.py", "references/template-library.md", "tests/test_library.py",
     "tests/test_styles.py", "examples/demo.en.json", "examples/demo.zh-TW.json",
 )
 

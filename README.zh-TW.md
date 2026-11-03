@@ -116,14 +116,38 @@ python3 scripts/resume.py render examples/demo.json --demo --out output/demo
 
 ### 六種可產生 PDF 的風格
 
-| 風格 ID | 風格 | 適用線索 |
-| --- | --- | --- |
-| `classic` | [經典商務 PDF](docs/previews/classic.pdf) | 財務、行政、法務 |
-| `ats` | [ATS 極簡 PDF](docs/previews/ats.pdf) | 單欄黑字，優先文字解析；不保證所有 ATS 相容 |
-| `technical` | [技術工程 PDF](docs/previews/technical.pdf) | 工程、開發、資料；左側欄目標籤 |
-| `executive` | [管理領航 PDF](docs/previews/executive.pdf) | 管理職缺；深色頂欄 |
-| `editorial` | [內容編輯 PDF](docs/previews/editorial.pdf) | 內容、編輯、傳播；置中姓名與細線 |
-| `creative` | [創意作品 PDF](docs/previews/creative.pdf) | 設計、品牌、視覺；側邊色軌與編號 |
+| 風格 / PDF | 職缺類型 | 投遞管道 | ATS 提示 |
+| --- | --- | --- | --- |
+| [極簡專業型](docs/previews/ats.pdf) (`ats`) | 產品與技術 / 營運與成長 / 綜合職能 | 官網直投 / ATS / 國內招聘平台 | 單欄純黑、無圖形標記，文字擷取最穩，適合需要解析的投遞管道。 |
+| [商務菁英型](docs/previews/executive.pdf) (`executive`) | 商務與市場 / 營運與成長 / 綜合職能 | 國內招聘平台 / 獵頭推薦 / 官網直投 / ATS | 頂部色帶不含文字，內容單欄，解析不受影響。 |
+| [數據成長型](docs/previews/growth.pdf) (`growth`) | 營運與成長 / 商務與市場 | 國內招聘平台 / 獵頭推薦 | 已有數字會高亮成紫色，純文字解析仍然完整；請確認目標管道不依賴純文字。 |
+| [創意作品型](docs/previews/creative.pdf) (`creative`) | 內容與創意 / 商務與市場 | 作品集 / 面試材料 / 國內招聘平台 / 獵頭推薦 | 側邊色軌與編號為裝飾，擷取出的文字順序仍然正確，但建議同時準備一份 ATS 版。 |
+| [科技專案型](docs/previews/technical.pdf) (`technical`) | 產品與技術 | 官網直投 / ATS / 國內招聘平台 | 左側標籤欄只是視覺分欄，文字順序為標題在前、正文在後。 |
+| [經典正式型](docs/previews/classic.pdf) (`classic`) | 綜合職能 / 商務與市場 | 國內招聘平台 / 官網直投 / ATS / 獵頭推薦 | 傳統單欄加細分隔線，解析穩定。 |
+
+### 補齊原討論的模板庫
+
+數據成長型取代先前誤加的內容編輯型。按「職缺類型 × 投遞管道 × 資歷」
+檢索模板，先複用已認可的版本，再按缺口研究。國內求職依雇主實際要求處理
+中文字型、選填照片、聯絡方式與一至兩頁篇幅。
+
+結構品質、技術品質、真實投遞成效分開記錄。內部百分制：職缺匹配 35、
+成果證明 25、事實來源 15、內容層次 10、技術品質 10、視覺 5。
+這是自定審閱標準，不是招聘方演算法，也不預測面試機率。
+
+個人模板可儲存、審核啟用、停用修復並記錄投遞回饋，保留於本機個人目錄。
+公共模板須經去識別化、授權和品質檢查後以 PR 更新。
+研究來源包括大學職涯中心、招聘研究、真實 JD、ATS 檢查與投遞資料，
+不可複製付費模板或他人履歷；沒有真實資料不可宣稱高通過率。
+
+```text
+python scripts/library.py list --role-family ops-growth --channel cn-platform
+python scripts/library.py save my-growth --style growth --role-family ops-growth --channel cn-platform --seniority mid
+python scripts/library.py report my-growth
+```
+
+儲存模板分類不代表訓練模型或上傳個資。完整的審核、淘汰和回饋命令見
+[模板庫與品質標準](skills/smart-resume/references/template-library.md)。
 
 每種風格有獨立 `styles/<id>/STYLE.md`，共用已確認的內容，正文維持 10.5 pt。圖庫圖片由實際 PDF 轉成 PNG，包含所有頁面，並連結 PDF 與 HTML。
 
@@ -180,10 +204,12 @@ smart-resume/
 │   └── demo.zh-TW.json
 ├── references/
 │   ├── styles.md
+│   ├── template-library.md
 │   └── workflow.md
 ├── scripts/
 │   ├── gallery.py
 │   ├── install.py
+│   ├── library.py
 │   ├── package.py
 │   ├── quality.py
 │   ├── resume.py
@@ -195,14 +221,15 @@ smart-resume/
 │   │   └── STYLE.md
 │   ├── creative/
 │   │   └── STYLE.md
-│   ├── editorial/
-│   │   └── STYLE.md
 │   ├── executive/
+│   │   └── STYLE.md
+│   ├── growth/
 │   │   └── STYLE.md
 │   ├── technical/
 │   │   └── STYLE.md
 │   └── catalog.json
 ├── tests/
+│   ├── test_library.py
 │   ├── test_resume.py
 │   └── test_styles.py
 ├── LICENSE

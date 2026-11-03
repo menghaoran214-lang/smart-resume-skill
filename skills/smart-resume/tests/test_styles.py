@@ -20,7 +20,7 @@ def fixture(language="en"):
 class MatchingTests(unittest.TestCase):
     def test_roles_and_fallback(self):
         roles = {"finance analyst": "classic", "software engineer": "technical",
-                 "品牌设计师": "creative", "內容編輯": "editorial", "销售总监": "executive", "unknown role": "classic"}
+                 "品牌设计师": "creative", "增长电商": "growth", "商务拓展": "executive", "unknown role": "classic"}
         for title, expected in roles.items():
             self.assertEqual(styles.match({"jd": {"title": title}})[0]["id"], expected)
         self.assertEqual(styles.match(fixture(), ats=True)[0]["id"], "ats")
@@ -60,6 +60,17 @@ class ProfileTests(unittest.TestCase):
 
 
 class AcceptanceTests(unittest.TestCase):
+    def test_growth_numbers_preserve_quotes_and_supported_text(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            data = fixture()
+            data["claims"][2]["text"] = "Candidate's example: 12 tasks, 25% improvement <reviewed>."
+            target = Path(temporary) / "out"
+            resume.render(data, Path(temporary), target, demo=True, style="growth")
+            self.assertTrue(all(quality.inspect(target, data, True)["checks"].values()))
+            body = (target / "resume.html").read_text(encoding="utf-8")
+            self.assertIn('Candidate&#x27;s example:', body)
+            self.assertIn('<span class="metric">25%</span>', body)
+
     def test_six_styles_three_languages_preserve_every_selected_claim(self):
         for language in ("zh-CN", "zh-TW", "en"):
             for slug in styles.STYLES:

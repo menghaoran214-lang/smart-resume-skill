@@ -1,5 +1,23 @@
 # Acceptance
 
+## 0.3.0 discussion alignment - 2026-11-03
+
+Local Windows verification: 8 repository tests and 33 skill tests passed.
+Six corrected styles in three languages produced 18 single-page PDF previews;
+PDF contact sheets were visually inspected for layout, glyphs and clipping.
+The suite also checks two-page output for every style/language combination.
+Native ego-browser checked 42 gallery/resume viewport observations (1440/390 px):
+no horizontal overflow, clipped text or failed images; growth filtering passed.
+HTML screenshot review remains pending because the browser window was minimized.
+Do not inherit 0.2.0 visual attestations for changed artifacts. New review records
+retain pending categories until the respective review is performed.
+
+The new private library lifecycle and feedback are executable and tested.
+The 100-point rubric is an agent review instruction, not an automatic score.
+No real application outcomes were collected or claimed. Public contributions
+are PR-based; there is no unattended template crawler or self-training model.
+GitHub synchronization and remote CI must be reported separately.
+
 ## Current release: 0.2.0 - 2026-11-03
 
 Local verification on Windows with the bundled Python 3.13 runtime, ReportLab,

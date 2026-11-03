@@ -1,4 +1,8 @@
-# Classic Business · 经典商务 · 經典商務
+# Classic Formal · 经典正式型 · 經典正式型
+
+Roles: finance, traditional firms, management and general professional functions.
+Channels: Chinese platforms, company ATS and agency referrals. Conventional
+single-column reading order; actual ATS acceptance still needs verification.
 
 ## Identity
 Left-aligned name and full-width sections separated from the header by a strong rule.

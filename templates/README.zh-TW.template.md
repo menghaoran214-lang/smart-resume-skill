@@ -99,14 +99,31 @@
 
 ### 六種可產生 PDF 的風格
 
-| 風格 ID | 風格 | 適用線索 |
-| --- | --- | --- |
-| `classic` | [經典商務 PDF](docs/previews/classic.pdf) | 財務、行政、法務 |
-| `ats` | [ATS 極簡 PDF](docs/previews/ats.pdf) | 單欄黑字，優先文字解析；不保證所有 ATS 相容 |
-| `technical` | [技術工程 PDF](docs/previews/technical.pdf) | 工程、開發、資料；左側欄目標籤 |
-| `executive` | [管理領航 PDF](docs/previews/executive.pdf) | 管理職缺；深色頂欄 |
-| `editorial` | [內容編輯 PDF](docs/previews/editorial.pdf) | 內容、編輯、傳播；置中姓名與細線 |
-| `creative` | [創意作品 PDF](docs/previews/creative.pdf) | 設計、品牌、視覺；側邊色軌與編號 |
+{{STYLE_DIRECTORY}}
+
+### 補齊原討論的模板庫
+
+數據成長型取代先前誤加的內容編輯型。按「職缺類型 × 投遞管道 × 資歷」
+檢索模板，先複用已認可的版本，再按缺口研究。國內求職依雇主實際要求處理
+中文字型、選填照片、聯絡方式與一至兩頁篇幅。
+
+結構品質、技術品質、真實投遞成效分開記錄。內部百分制：職缺匹配 35、
+成果證明 25、事實來源 15、內容層次 10、技術品質 10、視覺 5。
+這是自定審閱標準，不是招聘方演算法，也不預測面試機率。
+
+個人模板可儲存、審核啟用、停用修復並記錄投遞回饋，保留於本機個人目錄。
+公共模板須經去識別化、授權和品質檢查後以 PR 更新。
+研究來源包括大學職涯中心、招聘研究、真實 JD、ATS 檢查與投遞資料，
+不可複製付費模板或他人履歷；沒有真實資料不可宣稱高通過率。
+
+```text
+python scripts/library.py list --role-family ops-growth --channel cn-platform
+python scripts/library.py save my-growth --style growth --role-family ops-growth --channel cn-platform --seniority mid
+python scripts/library.py report my-growth
+```
+
+儲存模板分類不代表訓練模型或上傳個資。完整的審核、淘汰和回饋命令見
+[模板庫與品質標準](skills/smart-resume/references/template-library.md)。
 
 每種風格有獨立 `styles/<id>/STYLE.md`，共用已確認的內容，正文維持 10.5 pt。圖庫圖片由實際 PDF 轉成 PNG，包含所有頁面，並連結 PDF 與 HTML。
 
