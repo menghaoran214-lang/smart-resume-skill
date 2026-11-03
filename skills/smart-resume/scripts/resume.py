@@ -9,6 +9,7 @@ from pathlib import Path
 from string import Template
 import sys
 import tempfile
+import styles as style_library
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -108,7 +109,8 @@ def photo_data(data, input_dir):
     return image, f"data:{mime};base64,{base64.b64encode(photo.read_bytes()).decode('ascii')}"
 
 
-def render_html(data, claims, photo):
+def render_html(data, claims, photo, style=None):
+    style = style or style_library.resolve(data, "classic")
     label, demo_notice, editing_note = LANGUAGES[data["language"]]
     name = claims[data["candidate"]["name"]]["text"]
     blocks = []
@@ -123,15 +125,16 @@ def render_html(data, claims, photo):
         if number == 1:
             contact = " | ".join(claims[claim_id]["text"] for claim_id in data["candidate"]["contacts"])
             content.append(f'<p class="meta">{html.escape(contact)}</p>')
-        for section in sections:
-            content.append(f'<section><h2>{html.escape(section["title"])}</h2>')
+        for index, section in enumerate(sections, 1):
+            content.append(f'<section><h2><span class="section-number">{index:02d} / </span>{html.escape(section["title"])}</h2><div class="section-body">')
             content.extend(f'<p>{html.escape(claims[claim_id]["text"])}</p>' for claim_id in section["claim_ids"])
-            content.append("</section>")
+            content.append("</div></section>")
         content.append(f"<footer>{number} / {len(data['pages'])}</footer>")
         blocks.append('<article class="page" contenteditable="true">' + "\n".join(content) + "</article>")
     return Template((ROOT / "assets/resume.html").read_text(encoding="utf-8")).substitute(
         language=data["language"], name=html.escape(name), intention=html.escape(data["intention"]),
-        editing_note=html.escape(editing_note), pages="\n".join(blocks))
+        editing_note=html.escape(editing_note), pages="\n".join(blocks),
+        style=style["id"], accent=style["accent"], spacing=style["spacing"])
 
 
 def register_font(font_path, all_text):
@@ -156,13 +159,16 @@ def register_font(font_path, all_text):
     raise ValueError("No usable font. Pass --font with a licensed TrueType font covering all text. " + "; ".join(errors))
 
 
-def render_pdf(data, claims, photo, path, font_path):
+def render_pdf(data, claims, photo, path, font_path, style=None):
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib.units import mm
     from reportlab.pdfgen.canvas import Canvas
     from reportlab.platypus import Paragraph
+    style = style or style_library.resolve(data, "classic")
+    accent = colors.HexColor(style["accent"])
+    layout = style["layout"]
     label, demo_notice, _ = LANGUAGES[data["language"]]
     visible = [claims[data["candidate"]["name"]]["text"], label, data["intention"]]
     visible.extend(claims[claim_id]["text"] for claim_id in data["candidate"]["contacts"])
@@ -173,25 +179,41 @@ def render_pdf(data, claims, photo, path, font_path):
     all_text = " ".join(visible) + (demo_notice if data["demo"] else "") + "0123456789/: |"
     font_name = register_font(font_path, all_text)
     page_width, page_height = A4
-    margin = 18 * mm
+    margin = 20 * mm if layout == "editorial" else 18 * mm
     body_width = page_width - margin * 2
     styles = {
         "body": ParagraphStyle("body", fontName=font_name, fontSize=10.5, leading=16, textColor=colors.HexColor("#182b3c"), wordWrap="CJK"),
         "title": ParagraphStyle("title", fontName=font_name, fontSize=24, leading=30, textColor=colors.HexColor("#182b3c"), wordWrap="CJK"),
-        "heading": ParagraphStyle("heading", fontName=font_name, fontSize=13, leading=19, textColor=colors.HexColor("#244d68"), wordWrap="CJK"),
+        "heading": ParagraphStyle("heading", fontName=font_name, fontSize=13, leading=19, textColor=accent, wordWrap="CJK"),
     }
+    if layout == "plain":
+        for paragraph_style in styles.values():
+            paragraph_style.textColor = colors.black
+    if layout == "editorial":
+        styles["title"].alignment = 1
+    if style["spacing"] == "airy":
+        styles["body"].leading = 18
     canvas = Canvas(str(path), pagesize=A4)
     canvas.setTitle("Smart Resume Demo" if data["demo"] else "Resume")
     measurements = []
     for number, sections in enumerate(data["pages"], 1):
         cursor = page_height - margin
+        boxes = []
+        if layout == "rail":
+            canvas.setFillColor(accent)
+            canvas.rect(0, 0, 6 * mm, page_height, fill=1, stroke=0)
+        if layout == "band":
+            canvas.setFillColor(accent)
+            canvas.rect(0, page_height - 10 * mm, page_width, 10 * mm, fill=1, stroke=0)
 
-        def draw(value, style="body", gap=8, width=body_width):
+        def draw(value, style="body", gap=8, width=body_width, left=margin):
             nonlocal cursor
             paragraph = Paragraph(html.escape(value), styles[style])
             _, height = paragraph.wrap(width, page_height)
             require(cursor - height >= margin + 15, f"Page {number} overflows; shorten or move content")
-            paragraph.drawOn(canvas, margin, cursor - height)
+            paragraph.drawOn(canvas, left, cursor - height)
+            boxes.append({"text": value, "x": round(left, 2), "top": round(page_height - cursor, 2),
+                          "width": round(width, 2), "height": round(height, 2)})
             cursor -= height + gap
 
         if data["demo"]:
@@ -207,36 +229,68 @@ def render_pdf(data, claims, photo, path, font_path):
             draw(" | ".join(claims[claim_id]["text"] for claim_id in data["candidate"]["contacts"]), width=header_width)
         if photo and number == 1:
             cursor = min(cursor, header_top - 34 * mm)
-        for section in sections:
-            cursor -= 10
-            draw(section["title"], "heading")
+        if layout in {"rule", "band"}:
+            canvas.setStrokeColor(accent)
+            canvas.setLineWidth(1.5 if layout == "rule" else .6)
+            canvas.line(margin, cursor, page_width - margin, cursor)
+        for index, section in enumerate(sections, 1):
+            cursor -= 14 if style["spacing"] == "airy" else 10
+            section_top = cursor
+            if layout == "ledger":
+                label_width = 32 * mm
+                draw(section["title"], "heading", width=label_width)
+                label_bottom = cursor
+                cursor = section_top
+                content_left = margin + 38 * mm
+                content_width = body_width - 38 * mm
+            else:
+                if layout == "editorial":
+                    canvas.setStrokeColor(accent)
+                    canvas.setLineWidth(.4)
+                    canvas.line(margin, cursor + 4, page_width - margin, cursor + 4)
+                heading = f"{index:02d} / {section['title']}" if layout == "rail" else section["title"]
+                draw(heading, "heading")
+                content_left, content_width = margin, body_width
             for claim_id in section["claim_ids"]:
-                draw(claims[claim_id]["text"])
+                draw(claims[claim_id]["text"], width=content_width, left=content_left)
+            if layout == "ledger":
+                cursor = min(cursor, label_bottom)
+                canvas.setStrokeColor(accent)
+                canvas.setLineWidth(.5)
+                canvas.line(margin + 35 * mm, section_top, margin + 35 * mm, cursor + 8)
         canvas.setFont(font_name, 9)
         canvas.drawRightString(page_width - margin, margin - 7, f"{number} / {len(data['pages'])}")
-        measurements.append({"page": number, "content_bottom_pt": round(cursor + 8, 2)})
+        measurements.append({"page": number, "content_bottom_pt": round(cursor + 8, 2), "boxes": boxes})
         canvas.showPage()
     canvas.save()
     return measurements
 
 
-def render(data, input_dir, out, font_path=None, demo=False):
+def render(data, input_dir, out, font_path=None, demo=False, style=None, profile=None, context="", ats=False):
     claims, selected = validate(data, demo)
+    appearance = style_library.resolve(data, style, profile, context, ats)
     out = Path(out).resolve()
     require(not out.exists(), "Output directory exists; choose a new directory to preserve previous files")
     out.parent.mkdir(parents=True, exist_ok=True)
     photo = photo_data(data, Path(input_dir))
     with tempfile.TemporaryDirectory(prefix=".resume-", dir=out.parent) as temporary:
         staging = Path(temporary)
-        measurements = render_pdf(data, claims, photo, staging / "resume.pdf", font_path)
-        (staging / "resume.html").write_text(render_html(data, claims, photo), encoding="utf-8")
+        measurements = render_pdf(data, claims, photo, staging / "resume.pdf", font_path, appearance)
+        (staging / "resume.html").write_text(render_html(data, claims, photo, appearance), encoding="utf-8")
         report = {
             "schema_version": 1, "demo": data["demo"], "page_count": len(data["pages"]),
+            "style": appearance,
             "page_size": "A4", "body_font_pt": 10.5, "selected_claim_ids": selected,
             "omitted_claim_ids": sorted(set(claims) - set(selected)), "measurements": measurements,
             "visual_review": "pending", "factual_review": "pending", "html_review": "pending",
             "note": "Structural validation is not factual verification or visual acceptance.",
         }
+        import hashlib
+        report["artifact_sha256"] = {
+            name: hashlib.sha256((staging / name).read_bytes()).hexdigest()
+            for name in ("resume.pdf", "resume.html")
+        }
+        report["input_sha256"] = hashlib.sha256(json.dumps(data, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
         (staging / "review.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
         out.mkdir()
         for artifact in staging.iterdir():
@@ -249,6 +303,18 @@ def main():
     subcommands = parser.add_subparsers(dest="command", required=True)
     init = subcommands.add_parser("init")
     init.add_argument("--out", type=Path, required=True)
+    matching = subcommands.add_parser("match")
+    matching.add_argument("input", type=Path)
+    matching.add_argument("--context", default="")
+    matching.add_argument("--ats", action="store_true")
+    listing = subcommands.add_parser("styles")
+    listing.add_argument("--profiles-dir", type=Path)
+    saving = subcommands.add_parser("save-style")
+    saving.add_argument("name")
+    saving.add_argument("--base", choices=style_library.STYLES, required=True)
+    saving.add_argument("--accent")
+    saving.add_argument("--spacing", choices=("regular", "airy"), default="regular")
+    saving.add_argument("--profiles-dir", type=Path)
     for command in ("validate", "render"):
         subparser = subcommands.add_parser(command)
         subparser.add_argument("input", type=Path)
@@ -256,6 +322,10 @@ def main():
         if command == "render":
             subparser.add_argument("--out", type=Path, required=True)
             subparser.add_argument("--font", type=Path)
+            subparser.add_argument("--style", choices=style_library.STYLES)
+            subparser.add_argument("--profile", type=Path)
+            subparser.add_argument("--context", default="")
+            subparser.add_argument("--ats", action="store_true")
     arguments = parser.parse_args()
     try:
         if arguments.command == "init":
@@ -263,11 +333,19 @@ def main():
             with arguments.out.open("x", encoding="utf-8") as stream:
                 stream.write((ROOT / "assets/intake.json").read_text(encoding="utf-8"))
             print("Created incomplete private intake. Fill and verify before rendering.")
+        elif arguments.command == "styles":
+            print(json.dumps({"library": style_library.CATALOG, "personal": style_library.list_profiles(arguments.profiles_dir)}, ensure_ascii=False, indent=2))
+        elif arguments.command == "save-style":
+            print(style_library.save_profile(arguments.name, arguments.base, arguments.accent,
+                                             arguments.spacing, arguments.profiles_dir))
+        elif arguments.command == "match":
+            print(json.dumps(style_library.match(load(arguments.input), arguments.context, arguments.ats), ensure_ascii=False, indent=2))
         elif arguments.command == "validate":
             _, selected = validate(load(arguments.input), arguments.demo)
             print(f"Structure and evidence eligibility passed: {len(selected)} selected claims. Factual review still required.")
         else:
-            report = render(load(arguments.input), arguments.input.resolve().parent, arguments.out, arguments.font, arguments.demo)
+            report = render(load(arguments.input), arguments.input.resolve().parent, arguments.out, arguments.font,
+                            arguments.demo, arguments.style, arguments.profile, arguments.context, arguments.ats)
             print(f"Generated {report['page_count']} A4 pages, editable HTML and private review record. Visual review pending.")
     except (ValueError, OSError, TypeError, KeyError, ImportError) as error:
         print(f"Error: {error}", file=sys.stderr)

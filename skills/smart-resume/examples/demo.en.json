@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "language": "en",
+  "demo": true,
+  "jd": {"title": "Content Operations Specialist", "company": "Fictional Studio", "source": "Synthetic demonstration; no real vacancy"},
+  "intention": "Content Operations Specialist",
+  "candidate": {"name": "name", "contacts": ["contact"], "photo_preference": "omit", "photo": null},
+  "sources": [{"id": "synthetic", "kind": "synthetic", "locator": "Fictional software fixture; not a real applicant"}],
+  "claims": [
+    {"id": "name", "text": "Alex Example", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "contact", "text": "candidate@example.invalid", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "summary", "text": "Fictional candidate for a layout demonstration. Organizes research, drafts and review notes around a single content role.", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "experience-title", "text": "Example Content Studio | Content Assistant | Illustrative period", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "experience", "text": "Maintained topic briefs and source records, prepared editorial drafts and tracked fact checks before publication. Distinguished observed findings from unverified interpretations.", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "workflow", "text": "Documented collection, drafting and review handoffs. This fictional fixture deliberately makes no unsupported claims about audience growth or business outcomes.", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "project-title", "text": "Example project | Knowledge reference library", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "project", "text": "Indexed research by topic, source date and permitted quotation scope. Kept uncertain material in a private review list instead of mixing it into publication drafts.", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "skills", "text": "Illustrative skills: research organization, text editing and spreadsheet collaboration. Real applications must include only supported candidate abilities.", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "education", "text": "Education placeholder for demonstration only. Replace with confirmed institution, degree, field and dates; never submit this fictional example.", "status": "document_supported", "source_ids": ["synthetic"]}
+  ],
+  "pages": [
+    [{"title": "Profile", "claim_ids": ["summary"]}, {"title": "Relevant Experience", "claim_ids": ["experience-title", "experience", "workflow"]}],
+    [{"title": "Selected Project", "claim_ids": ["project-title", "project"]}, {"title": "Education and Skills", "claim_ids": ["education", "skills"]}]
+  ]
+}

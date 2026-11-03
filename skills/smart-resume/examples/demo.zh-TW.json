@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "language": "zh-TW",
+  "demo": true,
+  "jd": {"title": "內容營運專員", "company": "虛構範例團隊", "source": "Synthetic demonstration; no real vacancy"},
+  "intention": "內容營運專員",
+  "candidate": {"name": "name", "contacts": ["contact"], "photo_preference": "omit", "photo": null},
+  "sources": [{"id": "synthetic", "kind": "synthetic", "locator": "Fictional software fixture; not a real applicant"}],
+  "claims": [
+    {"id": "name", "text": "範例候選人", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "contact", "text": "candidate@example.invalid", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "summary", "text": "本頁為虛構排版範例，用於展示如何依單一職缺整理既有經歷，不代表真實求職者。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "experience-title", "text": "範例內容工作室｜內容助理｜範例期間", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "experience", "text": "整理選題與公開資料，協助撰寫內容初稿，維護發布前的事實核對清單。保留原始來源，區分觀察、判斷與尚待查證的內容。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "workflow", "text": "將素材蒐集、初稿、複核與發布準備分為可檢查的步驟，記錄交接事項。不使用未經證明的成長率或閱讀量。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "project-title", "text": "範例專案｜知識內容資料庫", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "project", "text": "依主題維護資料索引，記錄出處、日期與可引用範圍；待查證內容留在內部清單中，避免混入對外稿件。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "skills", "text": "範例技能：資料整理、文字編輯、試算表協作。實際使用時只保留本人能夠說明並有來源支持的技能。", "status": "document_supported", "source_ids": ["synthetic"]},
+    {"id": "education", "text": "範例學歷條目：實際製作時填寫經確認的學校、科系、學位與期間，不得照搬本範例。", "status": "document_supported", "source_ids": ["synthetic"]}
+  ],
+  "pages": [
+    [{"title": "個人簡介", "claim_ids": ["summary"]}, {"title": "相關經歷", "claim_ids": ["experience-title", "experience", "workflow"]}],
+    [{"title": "專案經歷", "claim_ids": ["project-title", "project"]}, {"title": "學歷與技能", "claim_ids": ["education", "skills"]}]
+  ]
+}

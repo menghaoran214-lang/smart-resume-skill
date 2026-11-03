@@ -4,6 +4,11 @@ Use Python 3.10+ and install `skills/smart-resume/requirements.txt` into an
 isolated environment. Run `make test` for the repository tests and the skill
 tests. For a demo PDF, use the README commands and a locally licensed font
 covering its characters.
+The gallery integration test additionally needs Poppler's `pdftoppm` on PATH.
+Three-language rendering tests need a TrueType font covering Simplified and
+Traditional Chinese; set `SMART_RESUME_FONT` when automatic discovery is insufficient.
+The configured GitHub jobs install gallery dependencies, but remote CI was not
+run as part of the local 0.2.0 delivery.
 
 The three READMEs are generated from `templates/` and `data/project.json`.
 Change the source and run `python scripts/render_readme.py`; CI fails when a

@@ -1,0 +1,8 @@
+[
+  {"id":"classic","names":{"zh-CN":"经典商务","zh-TW":"經典商務","en":"Classic Business"},"accent":"#244d68","layout":"rule","keywords":["finance","account","legal","administration","财务","財務","行政","法务","法務","审计","審計"]},
+  {"id":"ats","names":{"zh-CN":"ATS 极简","zh-TW":"ATS 極簡","en":"ATS Minimal"},"accent":"#222222","layout":"plain","keywords":["ats","plain","tracking","解析","纯文本","純文字"]},
+  {"id":"technical","names":{"zh-CN":"技术工程","zh-TW":"技術工程","en":"Technical Ledger"},"accent":"#155e52","layout":"ledger","keywords":["engineer","developer","software","data","工程","开发","開發","技术","技術","数据","資料"]},
+  {"id":"executive","names":{"zh-CN":"管理领航","zh-TW":"管理領航","en":"Executive Brief"},"accent":"#233b59","layout":"band","keywords":["director","head","executive","lead","manager","总监","總監","负责人","負責人","经理","經理","管理"]},
+  {"id":"editorial","names":{"zh-CN":"内容编辑","zh-TW":"內容編輯","en":"Editorial Journal"},"accent":"#853b36","layout":"editorial","keywords":["content","writer","editor","communication","内容","內容","编辑","編輯","文案","传播","傳播"]},
+  {"id":"creative","names":{"zh-CN":"创意作品","zh-TW":"創意作品","en":"Creative Portfolio"},"accent":"#61467f","layout":"rail","keywords":["designer","creative","brand","visual","ux","ui","设计","設計","创意","創意","品牌","视觉","視覺"]}
+]

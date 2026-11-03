@@ -1,4 +1,5 @@
 .venv/
+.validation-tmp/
 __pycache__/
 *.pyc
 output/
@@ -13,3 +14,5 @@ private-resume/
 *.jpg
 *.jpeg
 !assets/banner.png
+!assets/styles-preview.png
+!docs/previews/*.pdf

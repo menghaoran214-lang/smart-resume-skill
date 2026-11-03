@@ -12,6 +12,11 @@ FILES = (
     "references/workflow.md", "assets/intake.json",
     "assets/resume.html", "examples/demo.json", "scripts/resume.py",
     "scripts/install.py", "scripts/package.py", "tests/test_resume.py",
+    "scripts/styles.py", "scripts/gallery.py", "scripts/quality.py",
+    "references/styles.md", "styles/catalog.json",
+    "styles/classic/STYLE.md", "styles/ats/STYLE.md", "styles/technical/STYLE.md",
+    "styles/executive/STYLE.md", "styles/editorial/STYLE.md", "styles/creative/STYLE.md",
+    "tests/test_styles.py", "examples/demo.en.json", "examples/demo.zh-TW.json",
 )
 
 
